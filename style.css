@@ -34,3 +34,6 @@ main{padding:32px 20px 60px}
 .tags{margin-bottom:10px}.tags .tag{margin:0 6px 6px 0;padding:2px 11px;font-size:13px}
 .yr{margin:28px 0 6px;border-bottom:1px solid var(--bd)}.list{list-style:none;padding:0;margin:0}.list li{display:flex;gap:14px;padding:4px 0}.list time{color:var(--mut);font-variant-numeric:tabular-nums;flex:none}
 footer.site{border-top:1px solid var(--bd);padding:22px 0;color:var(--mut);font-size:13px;text-align:center}
+
+nav>a,nav>.dd>a{display:flex;flex-direction:column;align-items:center;line-height:1.25}nav b{font-weight:600}nav small{font-size:11px;color:var(--mut);letter-spacing:.03em}
+@media(max-width:760px){nav>a,nav>.dd>a{flex-direction:row;gap:8px;align-items:baseline}}
