@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>災難時用 Meshtastic 要傳什麼？ | Sport10 運動實驗室</title><meta name="description" content="Mesh network 的好不用多說，但 mesh 不是只有 Meshtastic 而已。在我們探討更深入之前，我們來看看比較少被討論的關鍵因素：要傳什麼訊息？為什麼？遇到事情怎…"><link rel="stylesheet" href="../style.css"></head>
+<body><header class="site"><div class="wrap bar"><a class="brand" href="../index.html">Sport10<span> 運動實驗室</span></a>
+<input type="checkbox" id="mt" class="mt"><label for="mt" class="mb" aria-label="選單">☰</label>
+<nav><a href="../index.html">首頁</a>
+<div class="dd"><a href="../programs.html">課程 ▾</a><div class="ddm"><a href="../conscript-bcft.html">役男體能訓練班</a><a href="../pt-for-self-training-first-responders.html">緊急應變：一般體能訓練課程</a><a href="../bitan-swim-2025q1.html">碧潭開放水域游泳工作坊</a><a href="../rucking-principles.html">負重行走（Rucking）的原則</a><a href="../movement-preps.html">熱身動作</a></div></div>
+<div class="dd"><a href="https://luma.com/sport10" target="_blank" rel="noopener">活動 ▾</a><div class="ddm"><a href="https://luma.com/sport10" target="_blank" rel="noopener">Luma</a><a href="https://sport10.kktix.cc/" target="_blank" rel="noopener">KKTIX</a></div></div>
+<a href="../blog.html">文章</a><a href="../about.html">關於</a><a href="https://www.youtube.com/@sport10man/" target="_blank" rel="noopener">YouTube</a></nav></div></header><main class="wrap"><article class="post"><div class="meta">2026-04-05 <a class="tag" href="../category-technology.html">technology</a></div><h1>災難時用 Meshtastic 要傳什麼？</h1><div class="prose">
+<p>Mesh network 的好不用多說，但 mesh 不是只有 Meshtastic 而已。在我們探討更深入之前，我們來看看比較少被討論的關鍵因素：要傳什麼訊息？為什麼？遇到事情怎麼真的派上用場？</p>
+
+
+
+
+
+
+
+<h2 class="wp-block-heading">情境一</h2>
+
+
+
+<p>那個大地震發生在南投的秋天，電信基地台倒塌，電力中斷，你的家人沒有受困也沒有受傷，但你在台北第一時間不知道這件事。南投家人的居住地，基本生存所需的水、食物和安全（住宿）也沒有問題。</p>
+
+
+
+<p>在第一週災難來臨時，你最高通訊的優先項目是什麼？你家人住在透天厝，院子有看得到天空的空間。</p>
+
+
+
+<ol class="wp-block-list">
+<li>確認遠方的家人的受災狀況</li>
+
+
+
+<li>支援家人生存所需要的補給</li>
+</ol>
+
+
+
+<p>遠方的家人在南投，你40歲，南投的家人70歲。台北你住在松山區的公寓大樓，而台北到南投的距離很遠，更別說是在視距離內（line of sight）。LoRa 跑的 band 被各式各樣的訊息塞爆，收到的時序和時間戳記也搞的你很煩。無論你怎麼從台北調整你 Meshtastic 終端的設定，你也無法連絡到南投的家人，或是在台中各式各樣轉送和南投的節點。</p>
+
+
+
+<p>南投家裡的院子擺了太陽能可以供電的 Meshtastic 節點，但因為地震把節點弄倒在地上。你的家人不知道怎麼把線接回去，於是整個設備就收在大門旁邊的鞋櫃上。</p>
+
+
+
+<p>你最後還是只能等電信業者把基地台復原，問問台中在地的朋友看能否帶點訊息出來。或是考慮挺進災區，用肉身來確認災害現場的狀況。</p>
+
+
+
+<h2 class="wp-block-heading">情境二</h2>
+
+
+
+<p>同樣的地震，你也有家人在台北，不過你住松山，家人在樹林。你為了確認樹林家人的安全，決定當天還是騎車跑一趟。同時間把雙方的 Meshtastic 終端設定好了，在樹林當地確認兩邊連線接收無誤，也開啟了 private emergency channel，避免在 Emergency 頻道向大海一樣發送孤魂無主的訊息。</p>
+
+
+
+<p>不過，行動電話不容易接通的狀況，隔天早上就改善很多。或許因為台北震度不高，channel 內的訊息就是起床沒、吃飽沒等這種和基本生存無關緊要，但在心理層面發揮聊表慰藉效用的訊息。後來你主要還是會使用 iMessage，因為傳輸速度快很多。</p>
+
+
+
+<p>情境一和情境二都是一對一（one to one）的通訊場景。</p>
+
+
+
+<h2 class="wp-block-heading">情境三</h2>
+
+
+
+<p>你在松山區大樓隔壁的鄰居也有家人在南部，他曾經聽說也看到你說，你有災難通訊神器「妹婿」還有節點和太陽能板架在陽台上。他問說，你不是平常有很多會參加演練的積極同好？你也是防災士，可不可以幫忙聯絡彰化的某某人？</p>
+
+
+
+<p>你想了一下你在彰化八卦山根本一個人都不認識，想幫忙鄰居也不知道如何幫忙。鄰居說，我還是打電話請我在彰化市區的朋友騎車去八卦山幫我確認好了。他也很感謝你的幫忙。</p>
+
+
+
+<p>你感到有點無力，決定直接開車回南投。</p>
+
+
+
+<h2 class="wp-block-heading">情境四</h2>
+
+
+
+<p>接續，因為你在第二天的晚上還是無法確認南投家人的狀況，於是決定約一群同鄉的老朋友前往南投「救災」。這些老朋友只有你有 Meshtastic 節點和備用的節點。你把備用的節點拿出來使用，也分送給其中一位信任的老朋友。</p>
+
+
+
+<p>你們約在台一線新北三重的某加油站練習如何使用。你花了大約一個小時和你朋友把整個使用流程都順過一遍，關掉 MQTT，基本上只靠 RF。沿路上兩台車互相使用 Meshtastic App 追蹤位置，停下來的時候就手傳訊息，互相表示已收到。</p>
+
+
+
+<p>你朋友在通過彰化進南投後，過濁水溪往竹山去，你則是東轉往草屯去。然後，你們在 Meshtastic App 上，就再也看不到對方了。</p>
+
+
+
+<p>Meshtastic 只有你們在台一線前後開車的時候派上用場。你朋友才拿到機器沒幾個小時。機器被帶到竹山時，就被扔在車上的擋風玻璃下面。</p>
+
+
+
+<h2 class="wp-block-heading">災難時候派上用場的期待管理</h2>
+
+
+
+<p>以上四個災難情境都是根據真實狀況改編。有經驗的朋友應該能體會緊急通訊（EmComm）的困難。Mesh 的範疇相當深奧廣大，Meshtastic 要用的好也不是不行。但實際上要如何派上用場？很顯然不單單只是機器要選什麼或是可以「爆改」到看不出來是怎麼改的問題。</p>
+
+
+
+<p>更多時候關鍵在於：</p>
+
+
+
+<ul class="wp-block-list">
+<li>為什麼要用？</li>
+
+
+
+<li>能傳什麼？</li>
+
+
+
+<li>快速上手的學習成本？</li>
+
+
+
+<li>快速排錯的學習成本？</li>
+
+
+
+<li>和其他通訊方案的主備援關係？</li>
+
+
+
+<li>使用所有方的使用目的、使用誘因、持有成本和效益期待？</li>
+
+
+
+<li>緊急狀況下最佳化佈署的各種維持（sustainment）成本？</li>
+</ul>
+
+
+
+<p>媒體對於所謂新興科技通常會<a href="https://www.instagram.com/reels/DUFY-mGANrR/">為了吸引眼球</a>，<a href="https://makerpro.cc/2025/06/meshtastic-network-for-the-emergency/">把它講的很神</a>。Meshtastic 在一般人眼中是很神沒錯，會用的就能用到淋漓盡致，把節點鋪滿北部也沒什麼不好。但對於親身經歷過重大災難的災民來說，這個能派上用場的原始需求，不一定要用 Meshtastic 來滿足。</p>
+
+
+
+<h2 class="wp-block-heading">那什麼時候可以派上用場</h2>
+
+
+
+<p>絕大多數都要先從搭建「團隊」或是有「組織型態」的協作框架來想。</p>
+
+
+
+<p>緊急狀態時，通訊不是目的，開源也不是，但通訊是絕對必要的手段。通訊如果是 ad-hoc 那就可以用 mesh 的方式來達成。如果通訊有明顯有「勤務」或是「業務」目的，那 MANET（mobile ad-hoc network）會是選擇的方向。</p>
+
+
+
+<p>Meshtastic 對於 telemetry（遙測）領域的應用，例如氣溫、環境濕度等，好處不用多說。但人和人的溝通不若 telemetry 有高度正規化和標準化的空間。加上 Meshtastic 的特性，往 ad-hoc 基礎建設 (infrastructure) 方向的去推動，挑戰會很大。因為這些節點在真正災難要派上用場，大概只有少數人才能高壓下，展現高度的 adapability 作為。所以往 infrastructure 這方向去想，沒有遇到大事之前都很美好，但要供應「通訊生命線」的價值期待，最好要非常務實。</p>
+
+
+
+<p>前面有提到 MANET 的方向。MANET 對一般人來說又更遙遠了，但 Meshtastic 卻是很適合小隊和小組在視距內執行任務使用。</p>
+
+
+
+<p>Meshtastic 初期「導入」的實驗成本相對低廉，這確實是應該好好鼓勵發展的方向。小隊和小組行動要傳什麼訊息，照理說大家都有訓練過。有勤務在身，眼睛也不能一直釘著手機的同時，因此每一條資訊後面都有接著一個行動項目（action item）。在這種無論是通訊窄頻或是「認知窄頻」的工作條件限制之下，訊息的發送要如何精要有效？這有對應的準則和通聯紀律可以參酌使用。</p>
+
+
+
+<p>小組和團隊有在同一個機構下的，也有只是身分在特定情境在同一個組織下運作者。快速上手和學習的成本完全不一樣，維持的成本也不同。這些部分在導入時要考量。</p>
+
+
+
+<h2 class="wp-block-heading">所以一般人用 Meshtastic 要發什麼訊息</h2>
+
+
+
+<p>一般人就不用想太多了，一般人最好的使用情境就是拿支援 Meshtastic 終端被遠端「追蹤」。這些終端會回傳的主要就是時間和地理空間資訊座標，以及允許手動觸發，發送緊急 SOS 的求救訊號給遠端的接收方。</p>
+
+
+
+<p>想進一步用的都是有誘因的。要用就會有學習的成本，若學習走不下去，硬體本身可以流通作為教學的教具。從更大層面的社會通訊韌性來說，這也會是一件大好之事。</p>
+</div></article><nav class="pn"><a href="meshtastic-in-sar-ops.html">← Meshtastic 用在山搜搜救任務</a><a href="2026-crossfit-quarterfinals-east-asia.html">2026 CrossFit Quarterfinals 東亞選手成績 →</a></nav></main><footer class="site"><div class="wrap">Sport10 運動實驗室</div></footer></body></html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meshtastic 用在山搜搜救任務 | Sport10 運動實驗室</title><meta name="description" content="最近一連串關於「跑山獸」和付費山搜的議題，在台灣的網路上討論熱絡。不過在紛紛擾擾之外，科技的發展卻是不停止的日益更新。如何在搜救任務之下，讓人手不足和高齡化的異質搜救團隊，能提升任…"><link rel="stylesheet" href="../style.css"></head>
+<body><header class="site"><div class="wrap bar"><a class="brand" href="../index.html">Sport10<span> 運動實驗室</span></a>
+<input type="checkbox" id="mt" class="mt"><label for="mt" class="mb" aria-label="選單">☰</label>
+<nav><a href="../index.html">首頁</a>
+<div class="dd"><a href="../programs.html">課程 ▾</a><div class="ddm"><a href="../conscript-bcft.html">役男體能訓練班</a><a href="../pt-for-self-training-first-responders.html">緊急應變：一般體能訓練課程</a><a href="../bitan-swim-2025q1.html">碧潭開放水域游泳工作坊</a><a href="../rucking-principles.html">負重行走（Rucking）的原則</a><a href="../movement-preps.html">熱身動作</a></div></div>
+<div class="dd"><a href="https://luma.com/sport10" target="_blank" rel="noopener">活動 ▾</a><div class="ddm"><a href="https://luma.com/sport10" target="_blank" rel="noopener">Luma</a><a href="https://sport10.kktix.cc/" target="_blank" rel="noopener">KKTIX</a></div></div>
+<a href="../blog.html">文章</a><a href="../about.html">關於</a><a href="https://www.youtube.com/@sport10man/" target="_blank" rel="noopener">YouTube</a></nav></div></header><main class="wrap"><article class="post"><div class="meta">2026-04-07 <a class="tag" href="../category-technology.html">technology</a></div><h1>Meshtastic 用在山搜搜救任務</h1><div class="prose">
+<p>最近一連串關於「跑山獸」和付費山搜的議題，在台灣的網路上討論熱絡。不過在紛紛擾擾之外，科技的發展卻是不停止的日益更新。如何在搜救任務之下，讓人手不足和高齡化的異質搜救團隊，能提升任務的成功率？本篇側重在介紹新興科技 Meshtastic 在荒野搜救任務中的可用性探討。</p>
+
+
+
+<p>在沒有電力和通訊的地方，搜救組織不妨開始考慮將&nbsp;<a href="https://meshtastic.org/">Meshtastic</a>&nbsp;在內的離網無線電方案，納入強化搜救通訊技術的考量。</p>
+
+
+
+
+
+
+
+<h3 class="wp-block-heading">本文目的？</h3>
+
+
+
+<p>以下簡易的工作流程，預設適合惡劣地形（山搜）的配置與作業習慣，並能無縫嵌入<a href="https://en.wikipedia.org/wiki/Incident_Command_System">事故指揮體系（ICS）</a>。等等！雖然台灣實務上幾乎不會用 ICS 來執行搜救任務，而且搜救指揮官的作風會大幅決定團隊運作的方式，但我們還是用符合 ICS 概念作為支撐討論的框架，因為不少團體在接受&nbsp;<a href="https://rtp.nfa.gov.tw/introduction/news/133">T-CERT 訓練後才知道有 ICS 的存在</a>。重要的是，就算離開 T-CERT 的身分，在災難中還是很有機會用上ICS 的概念，進行快速編組和緊急應變。</p>
+
+
+
+<p>如果有一天健全的付費搜救（山搜）市場在台灣起飛，那麼遵循 ICS 的各種框架來作業，會比較能處理各種商業邏輯。另外，內政部各版本的<a href="https://www.google.com/search?q=%E5%B1%B1%E5%9F%9F%E4%BA%8B%E6%95%85%E6%90%9C%E6%95%91%E5%AE%89%E5%85%A8%E6%8C%87%E5%B0%8E%E5%8E%9F%E5%89%87&amp;sca_esv=9d0ddc8342dce93e&amp;sxsrf=ANbL-n7sBwZ4aNaT3KXNvdPtDp7OEz414g%3A1775549451663&amp;source=hp&amp;ei=C7zUaZG7Js-M0PEP2qiviA8&amp;iflsig=AFdpzrgAAAAAadTKG8aDF_58P7tZ5KRZ5wtdiQaGn_vY">山域事故搜救安全指導原則</a>內，通訊著墨的篇幅極少。本篇的目的也是以推動搜救通訊技術發展作為立論。Meshtastic 要在<a href="https://www.facebook.com/groups/meshtastictw/posts/695210552888140/">所有山搜任務中都派上用場</a>還有好幾光年的距離，但不開始就浪費了這股「社會韌性」的動能。</p>
+
+
+
+<h3 class="wp-block-heading">什麼是 Meshtastic？</h3>
+
+
+
+<p>Meshtastic 是一個基於 LoRa 技術的開源、離網（off-grid）、去中心化網狀網路（Mesh Network）系統。它允許使用者在沒有行動網路、Wi-Fi 或電力基礎設施的環境下，透過廉價的 LoRa 無線電設備進行文字訊息和 GPS 位置分享。它就像一個「文字版」的短波無線電，非常適合登山、戶外探險或災難應變使用。</p>
+
+
+
+<p>Meshtastic 將手機連接到低功耗無線電，透過網狀網路（Mesh）傳遞簡訊和 GPS 位置。每個傳輸的數據包都攜帶加密負載，而標頭（Header）保持開放，以便鄰近節點轉發。每個頻道使用專屬密鑰（private key），由團隊自行設定並內部共享。</p>
+
+
+
+<p>*編按：Mesh 不是只有 Meshtastic，但基於討論方便和生態圈的豐富度，本篇僅討論 Meshtastic。</p>
+
+
+
+<h3 class="wp-block-heading">Meshtastic 的整體優勢？</h3>
+
+
+
+<ul class="wp-block-list">
+<li>簡短的簡訊<strong>：</strong>&nbsp;簡潔，實際上限約為幾百個字元。傳輸的功率極低。</li>
+
+
+
+<li>位置共享： 每個節點可自動排程，傳送 GPS 位置與電池狀態。</li>
+
+
+
+<li>擴充簡單： 快速增加節點、掃描 QR Code 即完成裝置組態設定，加入律定的相同設定與密鑰的通訊頻道。這對不同團隊總是會攜帶自己的裝備（BYOD）條件限制之下，更是適合。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Meshtastic 相對於業餘無線電的優勢？</h3>
+
+
+
+<ul class="wp-block-list">
+<li>不需執照：Meshtastic 跑在LoRa 頻段，屬於 ISM Band 免授權頻段，如台灣常用的 920-925MHz。就像 Wi-Fi 一樣，買來就能用，完全合法且無需執照。</li>
+
+
+
+<li>每個節點都是中繼：Meshtastic 有「可控制的<a href="https://zh.wikipedia.org/wiki/%E6%B4%AA%E6%B3%9B%E8%B7%AF%E7%94%B1">洪氾路由</a>」（Controlled Flooding）來傳遞訊息。只要中間有其他使用者的裝置，訊號就能像接力賽一樣自動跳轉，繞過障礙物或延伸距離。跳轉預設為3跳。</li>
+
+
+
+<li>與手機結合：有專屬的 app，也可結合更大的 TAK 生態系統，建立以搜救任務為導向的共同作業圖像（Common Operational Picture），例如 Wide Area Search Plugin（WASP）的使用（<a href="https://www.facebook.com/groups/500362027115277/posts/1887496725068460/">臉書討論</a>）。</li>
+
+
+
+<li>低功耗和續航力：戶外型的 Meshtastic 使用者終端，可<a href="https://harukitoreda.github.io/Meshtastic-Experiments/Battery-Runtime-Tests">連續開機3-5天</a>，適合多天搜救任務場景。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Meshtastic 的劣勢？</h3>
+
+
+
+<ul class="wp-block-list">
+<li>文字為主：僅能傳輸文字，幾乎無法在野外搜救使用語音。</li>
+
+
+
+<li>選擇有限：業餘無線電相當普及且容易取得，支援 Meshtastic 的終端選擇少很多。非個人使用的大量進口也會遇到 NCC 的相關規範。</li>
+
+
+
+<li>比較嬌貴：大多數的 Meshtastic 市售終端不適合在惡劣環境和天氣使用，外殼可透過 3D 列印技術打造有 IP 防水等級的防護。比較勇健（robust）的終端當然價格就比較高。</li>
+
+
+
+<li>複雜地形要較好的通訊規劃能力：在不同地形地貌下的搜救情境，需要有良好的通訊規劃能力（如通信中繼）。這應該在「搜救計劃」的階段要納入。地形會阻擋訊號，但稜線有助於傳輸。以台灣山域搜救的地形和林相特性，手持設備的通訊距離要保守看待。團隊內若有人有業餘無線電佈建的經驗（<a href="https://www.ctarl.org.tw/bv5ya/aresru1.htm">如 ARES 緊急通信服務</a>）更佳。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">初期的通訊頻道規劃？</h3>
+
+
+
+<p>初期的通訊頻道規劃很重要，因為我們拿到機器之後，沒有建立主次頻道，就無法和其他裝置通聯。如果不是在搜救任務，通常最快的入門方式是掃公開的 QR Code，取得台灣社群的預設四個頻道（<a href="https://blog.reh.tw/archives/4009">專文</a>）。這些頻道在練習熟悉之後可以刪除。</p>
+
+
+
+<p>在搜救任務開始之前，我們可以設置一個「主頻道」（Primary Channel）供全體人員通訊。更改預設密鑰，在報到時透過 QR Code 共享。「次頻道」（Secondary Channel）則是處理特定角色的流量，避免干擾主網。</p>
+
+
+
+<p>頻道可有：</p>
+
+
+
+<ul class="wp-block-list">
+<li>管理指揮中心</li>
+
+
+
+<li>搜索小組</li>
+
+
+
+<li>醫療組</li>
+
+
+
+<li>後勤</li>
+</ul>
+
+
+
+<p>所有頻道共享相同的無線電參數，區別在於密鑰與權限。名稱應簡短清晰，並在每次任務間更換密鑰。若團隊各組有人業餘無線電用的很純熟，指揮官判斷本次搜救任務，我們只要 Meshtastic 的「自動追蹤」或排程「位置回報」功能，那頻道規劃可簡化為僅有單一頻道：地面小組。這可避免工作流程重複，增加前線作業人員和指揮所的管理負擔。</p>
+
+
+
+<p>指揮所是否要有大螢幕做調度監控，則視任務而決定。這可以是一台筆電加收訊良好的 Meshtastic 終端，做臨時的 Meshtastic 基地站（Base Station），同時<a href="https://meshtastic.org/docs/software/integrations/mqtt/">啟用 MQTT</a>。也可更進一步往高級的&nbsp;<a href="https://meshmonitor.org/">MeshMonitor</a>&nbsp;或是&nbsp;<a href="https://github.com/ericescobar/MeshC2">MeshC2</a>&nbsp;嘗試。</p>
+
+
+
+<h3 class="wp-block-heading">搜救現場任務型態通訊節點佈署規劃？</h3>
+
+
+
+<p>這部份比較複雜，也是真正的挑戰。在此僅針對概念作說明。</p>
+
+
+
+<ol class="wp-block-list">
+<li>裝備配發 or BYOD： 每位成員配備一台手持終端設備與一顆備用電池。設備需標註「簡稱」（Short Name），與搜救現場白板上的呼號或代號對應。若設備不足，則每隊至少配發上述設備一整套。這和衛星電話、手機或 GPS 手持裝置的配發邏輯相同。任務編組的隊員也可自行攜帶自己的 Meshtastic 設備來指揮所報到。</li>
+
+
+
+<li>建立骨幹： 在稜線或高處道路放置一個轉發站（Repeater），確保能與搜尋區域和指揮所保持視距（Line of Sight）。通訊規劃不用完整覆蓋搜索區域，但要合理覆蓋。這有很多輔助工具，台灣在搜救任務應該使用的不多。</li>
+
+
+
+<li>小隊互相通聯考量：常常遇到的狀況無法全程和指揮所通聯，但小隊之間卻可以保持聯繫。這時候 Meshtastic 終端和中繼的選擇就很重要了。</li>
+</ol>
+
+
+
+<h3 class="wp-block-heading">通聯紀律？</h3>
+
+
+
+<p>Meshtastic 在通訊短促且規律時表現最佳。我們採用預設的罐頭訊息，以減少輸入時間與壓力。若把 Meshtastic 終端當成是無腦追蹤器（dumb tracker）來使用，那每台機器僅需要設定角色標籤即可。預設的罐頭訊息格式可以有下列幾種：</p>
+
+
+
+<ul class="wp-block-list">
+<li>報到</li>
+
+
+
+<li>發現/線索回報：如鞋子、背包，明顯人類活動的物理足跡。</li>
+
+
+
+<li>尋獲目標：如待救援者或罹難者。</li>
+
+
+
+<li>醫療行為：傷患甚至可戴上支援 BLE 傳輸的生理監測裝置，定期透過 Meshtastic 回報給遠端醫療小組。</li>
+
+
+
+<li>撤離請求</li>
+
+
+
+<li>危險地標註</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">節奏與角色</h3>
+
+
+
+<ul class="wp-block-list">
+<li>地面小組<strong>：</strong>每15分鐘報到一次。改變方向、發現跡象或停止時傳送位置。</li>
+
+
+
+<li>醫護與後勤： 監控專屬頻道，並在2至3分鐘內確認收悉。</li>
+
+
+
+<li>指揮所： 監控主頻道，將冗長的對話引導至次要頻道，或將資訊與空勤總隊協調作業聯絡等。</li>
+
+
+
+<li>原則： 複雜或緊急通訊用語音；穩定的狀態、位置和簡短任務用 Meshtastic。</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">小結</h3>
+
+
+
+<p>透過演練和逐步的小規模佈署，不斷的最佳化各種流程設定，那麼這些作業概念就能淬鍊為操作指引手冊或制式作業包。Meshtastic（或是其他 Mesh 方案）的威力就可以在山搜任務中慢慢發揮，解少重複的人力支出，合理的降低各種搜救任務中的不確定性。</p>
+</div></article><nav class="pn"><a href="labor-day-2026-rucking.html">← [活動] 勞動節水陸 Rucking</a><a href="meshtastic.html">災難時用 Meshtastic 要傳什麼？ →</a></nav></main><footer class="site"><div class="wrap">Sport10 運動實驗室</div></footer></body></html>
