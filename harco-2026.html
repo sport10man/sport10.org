@@ -33,7 +33,6 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
 .f{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
 .f input,.f select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:0}
 .f input{flex:1 1 200px}
-.f button{font:inherit;padding:7px 14px;border-radius:6px;border:1.5px solid var(--a);background:var(--a);color:#fff;font-weight:600;cursor:pointer}
 .tw{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:#fff}
 table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
 th,td{padding:7px 10px;text-align:left;border-bottom:1px solid #edf0f3}
@@ -45,8 +44,8 @@ ul.n{margin:0;padding-left:20px}ul.n li{margin:5px 0}
 @media(max-width:600px){h1{font-size:26px}.row{grid-template-columns:84px 1fr 54px}}
 </style></head><body><div class="w">
 <h1>HARCO 選手名單分析</h1>
-<p class="upd"><b>最後更新：2026/09/29 15:23（台北時間）</b><span>資料來自官方公告名單（HARCO 10/17、10/18，0928 版）</span></p>
-<p class="sub">點選日期切換，下方名單可搜尋、篩選並匯出 CSV。</p>
+<p class="upd"><b>最後更新：2026/09/29 15:25（台北時間）</b><span>資料來自官方公告名單（HARCO 10/17、10/18，0928 版）</span></p>
+<p class="sub">點選日期切換，下方名單可搜尋與篩選。</p>
 <div class="tabs" id="tabs"></div>
 <div class="kpis" id="kpis"></div>
 <div class="grid" id="charts"></div>
@@ -66,7 +65,7 @@ $('tabs').onclick=e=>{if(e.target.dataset.d){S.day=e.target.dataset.d;S.lim=200;
 $('notes').innerHTML=NOTES.map(x=>`<li>${x}</li>`).join('');
 const uniq=k=>[...new Set(D.map(r=>r[k]).filter(Boolean))].sort();
 const opts=(k,label)=>`<select data-k="${k}" aria-label="${label}"><option value="">${label}：全部</option>${uniq(k).map(v=>`<option>${v}</option>`).join('')}</select>`;
-$('filters').innerHTML=`<input id="q" type="search" placeholder="搜尋姓名、隊名或編號">${opts('i','項目')}${opts('c','類別')}${opts('h','出發時間')}${opts('s','尺寸')}<select data-k="st" aria-label="編號狀態"><option value="">編號狀態：全部</option><option value="ok">已編號</option><option value="pend">待編號</option></select><button id="csv">匯出目前結果 CSV</button>`;
+$('filters').innerHTML=`<input id="q" type="search" placeholder="搜尋姓名、隊名或編號">${opts('i','項目')}${opts('c','類別')}${opts('h','出發時間')}${opts('s','尺寸')}<select data-k="st" aria-label="編號狀態"><option value="">編號狀態：全部</option><option value="ok">已編號</option><option value="pend">待編號</option></select>`;
 $('filters').oninput=e=>{if(e.target.id==='q')S.q=e.target.value.trim().toLowerCase();else if(e.target.dataset.k)S[e.target.dataset.k]=e.target.value;S.lim=200;draw()};
 $('more').onclick=()=>{S.lim+=300;draw()};
 function rows(){return D.filter(r=>(S.day==='all'||r.d===S.day)&&(!S.i||r.i===S.i)&&(!S.c||r.c===S.c)&&(!S.h||r.h===S.h)&&(!S.s||r.s===S.s)&&(!S.st||(S.st==='pend'?r.p:!r.p&&r.i!=='觀眾票'))&&(!S.q||(r.n+' '+r.t+' '+r.b).toLowerCase().includes(S.q)))}
@@ -89,9 +88,5 @@ function draw(){
  $('tb').innerHTML=sh.map(r=>`<tr><td>${r.d}</td><td${r.p?' class="p"':''}>${r.b||(r.i==='觀眾票'?'—':'待編號')}</td><td>${r.n}</td><td>${r.t||''}</td><td>${r.i}</td><td>${r.c}</td><td>${r.a||''}</td><td>${r.s||'—'}</td><td>${r.h||''}</td></tr>`).join('');
  $('cnt').textContent=`符合條件 ${R.length.toLocaleString()} 筆，目前顯示 ${sh.length.toLocaleString()} 筆`;
  $('more').style.display=R.length>sh.length?'block':'none'}
-$('csv').onclick=()=>{const H=['日期','編號','姓名','隊名/單位','項目','類別','年齡組','尺寸','出發時間'];
- const e=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
- const t=[H.map(e).join(',')].concat(rows().map(r=>[r.d,r.b,r.n,r.t,r.i,r.c,r.a,r.s,r.h].map(e).join(','))).join('\r\n');
- const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t],{type:'text/csv'}));a.download='harco_名單篩選結果.csv';a.click()};
 draw();
 </script></body></html>
