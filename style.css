@@ -38,5 +38,8 @@ footer.site{border-top:1px solid var(--bd);padding:22px 0;color:var(--mut);font-
 nav>a,nav>.dd>a{display:flex;flex-direction:column;align-items:center;line-height:1.25}nav b{font-weight:600}nav small{font-size:11px;color:var(--mut);letter-spacing:.03em}
 @media(max-width:760px){nav>a,nav>.dd>a{flex-direction:row;gap:8px;align-items:baseline}}
 
-.footwrap{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
-.social{display:flex;gap:14px}.social a{color:var(--mut);display:flex}.social a:hover{color:var(--ac)}
+.footwrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;text-align:left}
+.social{display:flex;gap:6px}
+.social a{color:var(--mut);display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;transition:color .15s,background .15s}
+.social a:hover{color:var(--ac);background:var(--bd)}
+@media(max-width:520px){.footwrap{justify-content:center;text-align:center}}
