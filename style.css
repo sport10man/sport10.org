@@ -43,3 +43,8 @@ nav>a,nav>.dd>a{display:flex;flex-direction:column;align-items:center;line-heigh
 .social a{color:var(--mut);display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;transition:color .15s,background .15s}
 .social a:hover{color:var(--ac);background:var(--bd)}
 @media(max-width:520px){.footwrap{justify-content:center;text-align:center}}
+
+.blogtop{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.blogtop .ph1{margin:0}
+.rsslink{font-size:13px;color:var(--mut);border:1px solid var(--bd);padding:5px 12px;border-radius:99px;text-decoration:none}
+.rsslink:hover{color:var(--ac);border-color:var(--ac)}
