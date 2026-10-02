@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1000 Steps Day #CHAD1000X</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;900&family=Barlow+Condensed:wght@800&display=swap">
+<style>
+:root{--bg:#e3e5e1;--panel:#d3d6d1;--ink:#1a2226;--mute:#4d585c;--yel:#f2c200;--on-yel:#1a2226;--line:#1a2226;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161c1f;--panel:#232b2f;--ink:#e8eae6;--mute:#9aa6a9;--line:#e8eae6}}
+:root[data-theme="dark"]{--bg:#161c1f;--panel:#232b2f;--ink:#e8eae6;--mute:#9aa6a9;--line:#e8eae6}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yel);outline-offset:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-weight:900;line-height:1.2;margin:0}
+h2{font-size:clamp(26px,5vw,38px);margin-bottom:22px}
+section{padding:68px 0}
+.btn{display:inline-block;background:var(--yel);color:var(--on-yel);font-weight:900;padding:14px 28px;text-decoration:none;border:2px solid var(--on-yel);border-radius:2px}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+
+/* hero */
+.hero{padding:56px 0 0;overflow:hidden}
+.tag{font-weight:500;color:var(--mute);margin:0 0 6px}
+.big{font:800 clamp(120px,32vw,300px)/.82 "Barlow Condensed","Noto Sans TC",sans-serif;letter-spacing:-.01em;margin:0}
+.lang{display:inline-block;font-weight:900;font-size:14px;border:2px solid var(--line);padding:2px 10px;margin-left:10px;text-decoration:none}
+.hero h1{font-size:clamp(28px,6vw,52px);margin:18px 0 10px}
+.hero p.lead{max-width:34em;color:var(--mute);margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.stairs{display:flex;align-items:flex-end;height:120px;margin-top:48px}
+.stairs i{flex:1;background:var(--ink);border-top:8px solid var(--yel)}
+.stairs i:nth-child(1){height:16%}.stairs i:nth-child(2){height:28%}.stairs i:nth-child(3){height:40%}.stairs i:nth-child(4){height:52%}.stairs i:nth-child(5){height:64%}.stairs i:nth-child(6){height:76%}.stairs i:nth-child(7){height:88%}.stairs i:nth-child(8){height:100%}
+
+/* facts */
+.facts{background:var(--panel)}
+.facts dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin:0;border:2px solid var(--line)}
+.facts div{padding:20px 22px;border-right:2px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts dt{color:var(--mute);font-size:14px}
+.facts dd{margin:2px 0 0;font-weight:900;font-size:22px;line-height:1.35}
+.facts dd small{display:block;font-weight:400;font-size:14px;color:var(--mute)}
+@media(max-width:620px){.facts div{border-right:0;border-bottom:2px solid var(--line)}.facts div:last-child{border-bottom:0}}
+
+/* levels: rising steps */
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:end;margin-top:30px}
+.lv{background:var(--panel);border-top:8px solid var(--yel);padding:22px 20px 26px}
+.lv:nth-child(1){min-height:250px}.lv:nth-child(2){min-height:310px}.lv:nth-child(3){min-height:370px;background:#1a2226;color:#e8eae6}
+.lv h3{font-size:24px}.lv .w{font-weight:900;font-size:19px;margin:6px 0 10px}
+.lv p{margin:0;font-size:15.5px}
+@media(max-width:700px){.levels{grid-template-columns:1fr;gap:14px}.lv,.lv:nth-child(n){min-height:0}}
+
+/* two columns */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{padding:10px 0;border-bottom:1px solid var(--mute)}
+ul.plain b{font-weight:900}
+.note{color:var(--mute);font-size:15px}
+
+/* paths */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:10px}
+@media(max-width:760px){.paths{grid-template-columns:1fr}}
+.path{border:2px solid var(--line);padding:28px 26px}
+.path.a{background:var(--yel);color:var(--on-yel);border-color:var(--on-yel)}
+.path h3{font-size:24px;margin-bottom:6px}
+.path p{margin:0 0 14px}
+.path ol{margin:0 0 20px;padding-left:1.2em}
+.path.a .btn{background:var(--on-yel);color:var(--yel)}
+
+
+.official{border-top:2px solid var(--line);border-bottom:2px solid var(--line)}
+.official .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;padding-bottom:26px}
+.official h2{font-size:22px;margin:0 0 2px}
+.official p{margin:0;color:var(--mute);font-size:15px}
+.official .url{font:800 clamp(26px,5vw,34px)/1.1 "Barlow Condensed","Noto Sans TC",sans-serif;word-break:break-all}
+footer{background:#1a2226;color:#e8eae6;border-top:4px solid var(--yel);padding:40px 0 48px;font-size:15px}
+footer a{color:#f2c200}
+footer a:visited{color:#f2c200}
+footer p{margin:4px 0}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="tag">Sport10 Lab annual event #CHAD1000X <a class="lang" href="https://claude.ai/artifact/LAStDReJmXJX4EkwXcrmwB">中文</a></p>
+    <p class="big" aria-hidden="true">1000</p>
+    <h1>1000 Steps Day</h1>
+    <p class="lead">An annual event in memory of a Navy SEAL: carry weight, climb stairs, and complete 1,000 steps. November 11, 2026. Join us wherever you are.</p>
+    <div class="cta">
+      <a class="btn" href="#join">Join the climb</a>
+      <a class="btn ghost" href="#levels">See the levels</a>
+    </div>
+  </div>
+  <div class="stairs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</header>
+
+<section class="facts" style="padding:40px 0">
+  <div class="wrap">
+    <dl>
+      <div><dt>Date</dt><dd>Wed, Nov 11, 2026</dd></div>
+      <div><dt>Time</dt><dd>7:30–9:30 PM<small>About 1 hour of climbing, then time to hang out</small></dd></div>
+      <div><dt>Location (Xindian)</dt><dd>Bitan, Xindian, New Taipei<small>Exact spot shared after registration</small></dd></div>
+      <div><dt>Cost</dt><dd>Free</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="official" aria-label="US official website">
+  <div class="wrap">
+    <div>
+      <h2>US official website</h2>
+      <p>The original CHAD1000X event page</p>
+      <div class="url">chad1000x.com</div>
+    </div>
+    <a class="btn" href="https://chad1000x.com/" target="_blank" rel="noopener">Go to the official site</a>
+  </div>
+</section>
+
+<section id="levels">
+  <div class="wrap">
+    <h2>Three levels. Pick your height.</h2>
+    <p class="note" style="margin:0">No time limit. Complete 250, 500, 750 or 1,000 steps based on your own condition.</p>
+    <div class="levels">
+      <article class="lv"><h3>Friendly</h3><div class="w">No weight</div><p>Use park stairs of any height (about 20–22 cm / 8–9 in). Complete 250, 500, 750 or 1,000 steps based on your own condition.</p></article>
+      <article class="lv"><h3>Standard</h3><div class="w">30 / 20 lb pack</div><p>Any step height, any number of sets. Complete 250, 500, 750 or 1,000 steps based on your own condition.</p></article>
+      <article class="lv"><h3>Advanced</h3><div class="w">45 lb pack</div><p>Step up onto a 20-inch box, for a total of 1,000 steps.</p></article>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--panel)">
+  <div class="wrap two">
+    <div>
+      <h2>Why climb stairs?</h2>
+      <p>This annual event honors a Navy SEAL by climbing 1,000 steps with weight. Step-ups are tactical fitness in miniature: carry a load, move your own body, and go up.</p>
+      <p class="note">Held in 2023 and 2024. Cancelled in 2025 because of heavy rain.<br>
+        <a href="https://sport10.kktix.cc/events/chad1000x?utm_source=luma">2023 recap</a>　<a href="https://sport10.kktix.cc/events/chad1000x-2024?utm_source=luma">2024 recap</a></p>
+      <h2 style="margin-top:34px;font-size:24px">Who it's for</h2>
+      <ul class="plain"><li>Hikers and mountaineers</li><li>Trail runners</li><li>Anyone who wants to test their fitness</li><li>People who must carry loads over changing terrain for long periods</li></ul>
+    </div>
+    <div>
+      <h2>What is tactical fitness?</h2>
+      <ul class="plain">
+        <li><b>Raw strength</b>　Lift equipment or gear, or carry another person.</li>
+        <li><b>Speed endurance</b>　Run farther and move faster under load.</li>
+        <li><b>Muscular endurance</b>　Move up, down and through spaces with weight on your back.</li>
+        <li><b>Mobility</b>　Move easily over uneven ground and obstacles.</li>
+        <li><b>Grip</b>　Hold gear, climb ropes and hills, and grab things or people without tiring.</li>
+        <li><b>Tactical skills</b>　Water survival and rescue, river crossing, meeting a boat for extraction.</li>
+        <li><b>And more</b>　Every movement your job demands.</li>
+      </ul>
+      <p class="note">Reference: NSCA Tactical Strength &amp; Conditioning</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What to bring</h2>
+    <div class="two" style="gap:20px">
+      <ul class="plain"><li><b>Hiking boots or firm-soled shoes</b>, with suitable socks</li><li><b>A backpack you can load with weight</b></li></ul>
+      <ul class="plain"><li><b>A change of clothes</b>. You will sweat a lot.</li><li><b>If it rains</b>, we will announce a plan or a new venue early.</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="join" style="background:var(--panel)">
+  <div class="wrap">
+    <h2>How to join</h2>
+    <p style="margin-top:0">To climb with us in Xindian, register through the first option. Anywhere else, find your own stairs and host your own climb.</p>
+    <div class="paths">
+      <div class="path a">
+        <h3>Join in Xindian</h3>
+        <p>The event takes place at Bitan, Xindian, New Taipei. Please register first so we can send you the exact location and notify you early if weather forces a change of venue.</p>
+        <a class="btn" href="https://luma.com/59e5koeq">Register on Luma</a>
+      </div>
+      <div class="path">
+        <h3>Host it somewhere else</h3>
+        <p>No registration needed. Same day, same challenge, in your own city.</p>
+        <ol>
+          <li>Find a place with stairs: a park, stadium bleachers, a campus or a trailhead.</li>
+          <li>Pick your level. Friendly stairs are about 20–22 cm high.</li>
+          <li>Bring friends, stay within your limits, and carry water and a change of clothes.</li>
+          <li>Post with <b>#CHAD1000X</b> to share it with everyone.</li>
+        </ol>
+        <a class="btn ghost" href="mailto:1111.vphs8@simplelogin.com">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Sport10 Lab</b>　Tactical sports, fitness, IT and advanced knowledge exchange</p>
+    <p>Contact: <a href="mailto:1111.vphs8@simplelogin.com">1111.vphs8@simplelogin.com</a></p>
+    <p><a href="https://discord.com/invite/u5aXrxRZPx">Discord</a>　<a href="https://instagram.com/sport10man">Instagram</a>　<a href="https://youtube.com/@sport10man">YouTube</a>　<a href="https://chad1000x.com/">US official website</a></p>
+  </div>
+</footer>
+</body>
+</html>
