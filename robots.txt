@@ -1,41 +1,5 @@
-# 允許搜尋引擎索引；僅封鎖主要 AI 訓練／擷取爬蟲
+# 開放所有爬蟲（含搜尋引擎與 AI）
 User-agent: *
 Allow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
-
-User-agent: Bytespider
-Disallow: /
-
-User-agent: PerplexityBot
-Disallow: /
-
-User-agent: Applebot-Extended
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
-
-User-agent: FacebookBot
-Disallow: /
 
 Sitemap: https://sport10.org/sitemap.xml
