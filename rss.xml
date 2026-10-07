@@ -5,12 +5,20 @@
   <link>https://sport10.org/index.html</link>
   <description>Sport10 運動實驗室 最新文章</description>
   <language>zh-TW</language>
-  <lastBuildDate>Tue, 06 Oct 2026 08:25:36 +0800</lastBuildDate>
+  <lastBuildDate>Wed, 07 Oct 2026 06:43:30 +0800</lastBuildDate>
+  <item>
+    <title>2026 TPF 隊伍簡單看：國際隊伍、健身房與一群很會取隊名的人</title>
+    <link>https://sport10.org/posts/tpf-2026-teams-overview.html</link>
+    <guid isPermaLink="true">https://sport10.org/posts/tpf-2026-teams-overview.html</guid>
+    <pubDate>Wed, 07 Oct 2026 06:43:30 +0800</pubDate>
+    <category>crossfit/hyrox</category><category>events</category>
+    <description>把這次 10 月 17、18 日的賽程攤開來看，TPF 的參賽隊伍其實比想像中熱鬧。菁英組有 135 隊，另外還有男雙、女雙、混雙和團體等推廣組。</description>
+  </item>
   <item>
     <title>HARCO 參賽選手分析</title>
     <link>https://sport10.org/posts/harco-2026-analysis.html</link>
     <guid isPermaLink="true">https://sport10.org/posts/harco-2026-analysis.html</guid>
-    <pubDate>Tue, 06 Oct 2026 08:25:36 +0800</pubDate>
+    <pubDate>Wed, 07 Oct 2026 06:43:30 +0800</pubDate>
     <category>crossfit/hyrox</category><category>events</category>
     <description>看完 10/17 和 10/18 兩份公告名單，最直接的感覺是人真的很多。10/17 有 2,191 位選手，10/18 有 2,015 位，另外還賣出 142 張觀眾票，兩天加起…</description>
   </item>
@@ -157,14 +165,6 @@
     <pubDate>Sun, 22 Mar 2026 08:28:37 +0800</pubDate>
     <category>news</category>
     <description>主要是放運動相關的影片，目前包含：室內訓練、室外訓練，以及一些大量暖身動作的示範。不固定更新，歡迎訂閱。 https://www.youtube.com/watch?v=PYOPE…</description>
-  </item>
-  <item>
-    <title>2026 CrossFit Open 台灣各健身房表現（參賽人數）</title>
-    <link>https://sport10.org/posts/2026-crossfit-open-chinese-taipei.html</link>
-    <guid isPermaLink="true">https://sport10.org/posts/2026-crossfit-open-chinese-taipei.html</guid>
-    <pubDate>Wed, 18 Mar 2026 12:07:09 +0800</pubDate>
-    <category>crossfit/hyrox</category>
-    <description>先說感想，CrossFit 參與人口基數大的韓國當然表現也很好，其他國家的選手也不錯。這次 CrossFit Lilian 的參賽人數堪稱亞洲之光，排名全亞洲第一。於是我們來統計一…</description>
   </item>
 </channel>
 </rss>
