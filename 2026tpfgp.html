@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>2026 鋼鐵體能 賽程查詢 10/17–10/18</title>
+<title>2026 TPF全球極限體能鋼鐵大賽 賽程查詢 10/17–10/18</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, noai, noimageai">
 <meta name="googlebot" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
@@ -18,6 +18,8 @@ input{-webkit-user-select:text;user-select:text}
 header{background:var(--head);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 18px) 16px 14px}
 .wrap{max-width:860px;margin:0 auto}
 h1{margin:0;font-size:1.45rem;letter-spacing:.02em}
+h1 a.ev{color:#fff;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px}
+header p.en{margin:.25rem 0 0;font-size:.85rem;letter-spacing:.06em}
 header p{margin:.4rem 0 0;color:#c4d0e2;font-size:.92rem}
 .why{background:var(--panel);border-left:5px solid var(--accent);margin:14px auto;padding:12px 16px;font-size:.93rem;max-width:860px}
 .why b{display:block;margin-bottom:2px}
@@ -30,7 +32,6 @@ header p{margin:.4rem 0 0;color:#c4d0e2;font-size:.92rem}
 .chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chips .sep{width:1px;background:var(--line);margin:0 4px}
 .chips button:focus-visible,.star:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.count{font-size:.85rem;color:var(--sub);margin-top:6px}
 main{max-width:860px;margin:0 auto;padding:10px 12px 30px}
 table{width:100%;border-collapse:collapse;background:var(--panel)}
 th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
@@ -55,14 +56,14 @@ footer a{color:var(--accent);font-weight:600;word-break:break-all}
 </head>
 <body>
 <header><div class="wrap">
-<h1>2026 鋼鐵體能　賽程查詢</h1>
+<h1><a class="ev" href="https://tpfgrandprix.7don.com.tw/outline.html" target="_blank" rel="noopener noreferrer">2026 TPF全球極限體能鋼鐵大賽</a>　賽程查詢</h1>
+<p class="en">Taichung Power Fitness Grand Prix</p>
 <p>10/17（六）・10/18（日）　菁英組、推廣組、健身房對抗賽</p>
 </div></header>
 <div class="why"><b>為什麼做這個網站</b>我想替朋友的隊伍加油，但在 Instagram 一直往下滑，總是找不到他們什麼時候出場。所以把賽程整理成可以搜尋的表格：輸入隊名或編號，就能知道在哪個梯次、幾點開始。</div>
 <div class="bar"><div class="wrap">
 <div class="search"><input id="q" type="search" placeholder="搜尋隊名、編號、組別（例如：伊登、061、女雙）" autocomplete="off" aria-label="搜尋隊伍"></div>
 <div class="chips" id="chips" role="group" aria-label="篩選"></div>
-<div class="count" id="count" aria-live="polite"></div>
 </div></div>
 <main><div id="out"></div></main>
 <div id="shield">請使用一般瀏覽器開啟本頁。</div>
@@ -229,7 +230,6 @@ function render(){
   html+='<tr class="h'+(h.g==="菁英組"?" elite":"")+'"><td colspan="3">'+h.d+'　'+esc(h.g)+'　HEAT '+h.h+'<span class="t">'+esc(h.t)+'</span></td></tr>'+rows;
  });
  out.innerHTML=html?'<table><thead><tr><th>編號</th><th>隊伍名稱</th><th><span aria-hidden="true">★</span></th></tr></thead><tbody>'+html+'</tbody></table>':'<div class="empty">找不到符合的隊伍。試試較短的關鍵字，或把組別、日期改成「全部」。</div>';
- document.getElementById("count").textContent="共 "+hc+" 個梯次、"+total+" 支隊伍";
 }
 render();
 })();
