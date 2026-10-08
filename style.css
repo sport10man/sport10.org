@@ -50,3 +50,19 @@ nav>a,nav>.dd>a{display:flex;flex-direction:column;align-items:center;line-heigh
 .rsslink:hover{color:var(--ac);border-color:var(--ac)}
 .ruckback{margin-top:2em;padding:12px 16px;border:1px dashed var(--bd);border-radius:10px;font-size:14px;background:var(--card)}
 .ruckback a{font-weight:600}
+
+.lead{font-size:17px;color:var(--mut);margin:0 0 6px}
+.tabs>input{position:absolute;opacity:0;pointer-events:none}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 8px}
+.tabbar label{cursor:pointer;padding:8px 20px;border:1px solid var(--bd);border-radius:99px;background:var(--card);font-weight:600;font-size:15px;transition:all .15s}
+#tab-tpf:checked~.tabbar label[for=tab-tpf],#tab-harco:checked~.tabbar label[for=tab-harco]{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+#tab-tpf:focus-visible~.tabbar label[for=tab-tpf],#tab-harco:focus-visible~.tabbar label[for=tab-harco]{outline:2px solid var(--ac);outline-offset:2px}
+.panel{display:none}
+#tab-tpf:checked~.panels .p-tpf,#tab-harco:checked~.panels .p-harco{display:block}
+.panel h2{margin:12px 0 4px;font-size:24px;line-height:1.4}
+.infobox{border:1px solid var(--bd);border-radius:12px;padding:6px 18px;background:var(--card);margin:16px 0}
+.infobox p{margin:10px 0;font-size:15px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.linkrow .btn{font-size:14px;padding:7px 16px}
+.frame{display:block;width:100%;height:80vh;min-height:520px;border:1px solid var(--bd);border-radius:12px;background:#fff}
+.note{font-size:13px;color:var(--mut)}
