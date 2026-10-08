@@ -1,5 +1,0 @@
-# 開放所有爬蟲（含搜尋引擎與 AI）
-User-agent: *
-Allow: /
-
-Sitemap: https://sport10.org/sitemap.xml
