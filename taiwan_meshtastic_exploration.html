@@ -457,11 +457,11 @@ document.getElementById('zoomIn').addEventListener('click',()=>{const r=mapSvg.g
 document.getElementById('zoomOut').addEventListener('click',()=>{const r=mapSvg.getBoundingClientRect();zoomAt(mapScale/1.35,r.left+r.width/2,r.top+r.height/2)});
 document.getElementById('zoomReset').addEventListener('click',()=>{mapScale=1;mapX=0;mapY=0;paintMapView()});
 mapSvg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(mapScale*(e.deltaY<0?1.15:1/1.15),e.clientX,e.clientY)},{passive:false});
-mapSvg.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;dragState={id:e.pointerId,x:e.clientX,y:e.clientY,ox:mapX,oy:mapY};movedDuringDrag=false;mapSvg.setPointerCapture(e.pointerId);paintMapView()});
+mapSvg.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;dragState={id:e.pointerId,x:e.clientX,y:e.clientY,ox:mapX,oy:mapY};movedDuringDrag=false;paintMapView()});
 mapSvg.addEventListener('pointermove',e=>{if(!dragState||dragState.id!==e.pointerId)return;const dx=(e.clientX-dragState.x)/mapSvg.getBoundingClientRect().width*900,dy=(e.clientY-dragState.y)/mapSvg.getBoundingClientRect().height*1100;if(Math.abs(dx)+Math.abs(dy)>2)movedDuringDrag=true;mapX=dragState.ox+dx;mapY=dragState.oy+dy;paintMapView()});
-function endMapDrag(e){if(dragState&&dragState.id===e.pointerId){dragState=null;paintMapView();if(movedDuringDrag){mapSvg.dataset.moved='1';setTimeout(()=>delete mapSvg.dataset.moved,0)}}}
+function endMapDrag(e){if(dragState&&dragState.id===e.pointerId){dragState=null;paintMapView();if(movedDuringDrag){mapSvg.dataset.movedUntil=String(Date.now()+350)}}}
 mapSvg.addEventListener('pointerup',endMapDrag);mapSvg.addEventListener('pointercancel',endMapDrag);
-mapSvg.addEventListener('click',e=>{if(mapSvg.dataset.moved==='1'){e.stopPropagation();delete mapSvg.dataset.moved}},true);
+mapSvg.addEventListener('click',e=>{if(Number(mapSvg.dataset.movedUntil||0)>Date.now()){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();delete mapSvg.dataset.movedUntil}},true);
 // 手機雙指觸控縮放
 let pinchStart=null;
 mapSvg.addEventListener('touchstart',e=>{if(e.touches.length===2){const a=e.touches[0],b=e.touches[1];pinchStart={distance:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY),scale:mapScale,x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2}}},{passive:true});
