@@ -77,3 +77,4 @@ nav>a,nav>.dd>a{display:flex;flex-direction:column;align-items:center;line-heigh
 .ytgrid .ytwrap{max-width:none;margin:0}
 .ytgrid{grid-template-columns:repeat(3,1fr)}
 @media(max-width:700px){.ytgrid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px}.ytgrid .ytwrap{flex:0 0 82%;scroll-snap-align:start}}
+.herobtns{display:flex;flex-wrap:wrap;gap:12px}
