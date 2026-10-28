@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>📡 Local Mesh Discovery 本機離線版分析器</title>
+<style>
+:root{--bg:#f3f6f8;--card:#fff;--ink:#17212b;--muted:#607080;--line:#dce4ea;--accent:#087f8c;--accent2:#d8f3f2;--warn:#fff4db;--danger:#9b3c2f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:#111b2a;color:#f8fafc;padding:25px max(18px,calc((100vw - 1180px)/2)) 23px;border-bottom:3px solid #20a4a9}
+header .brand{color:#8fe6e8;font-size:12px;letter-spacing:.13em;font-weight:700}h1{font-size:clamp(25px,4vw,36px);line-height:1.2;margin:9px 0}header p{max-width:780px;color:#cbd5e1;margin:10px 0 0}
+main{max-width:1180px;margin:22px auto;padding:0 16px 45px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:19px;margin:0 0 16px;box-shadow:0 3px 12px #17212b08}
+h2{font-size:19px;margin:0 0 12px}h3{font-size:15px;margin:0 0 8px}.muted{color:var(--muted);font-size:13px}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.grow{flex:1;min-width:220px}
+button,.button{border:0;border-radius:9px;padding:10px 14px;background:var(--accent);color:white;font-weight:650;cursor:pointer;font-size:14px}button.secondary{background:#e8eef2;color:#203040}button:disabled{opacity:.45;cursor:not-allowed}
+input[type=file]{max-width:100%;padding:10px;border:1px dashed #9aaab8;border-radius:10px;background:#f9fbfc;width:100%}
+input[type=text],input[type=number],select{border:1px solid #cbd5df;border-radius:8px;padding:9px;background:white;color:var(--ink);max-width:100%}
+label{font-size:13px;color:#465666;display:block;margin:0 0 5px}.field{min-width:140px;flex:1}
+.notice{border-left:4px solid #d49a23;background:var(--warn);padding:11px 13px;border-radius:7px;font-size:13px;margin-top:12px}
+.success{border-left:4px solid #13958a;background:#e8f8f5;padding:11px 13px;border-radius:7px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfdfe;min-width:0}.metric .v{font-size:27px;font-weight:750;line-height:1.25;overflow-wrap:anywhere}.metric .k{font-size:12px;color:var(--muted);margin-top:5px}
+.twocol{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.chartbox{min-height:220px}.bars{display:flex;flex-direction:column;gap:9px}.barrow{display:grid;grid-template-columns:minmax(100px,1.1fr) 3fr 55px;gap:8px;align-items:center;font-size:13px}.track{height:13px;background:#e9eff3;border-radius:8px;overflow:hidden}.fill{height:100%;background:#168a95;border-radius:8px}
+.tablewrap{overflow:auto;max-height:510px;border:1px solid var(--line);border-radius:9px}table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}th,td{padding:9px 10px;border-bottom:1px solid #e7edf1;text-align:left}th{background:#f0f5f7;position:sticky;top:0;z-index:1}tbody tr:hover{background:#f4fafb}
+.pill{display:inline-block;border-radius:20px;background:#e7f3f4;color:#155e63;padding:3px 8px;font-size:12px;margin:2px}.hidden{display:none!important}
+#map{height:360px;border-radius:10px;border:1px solid var(--line);overflow:hidden;background:#edf2f5}.empty{padding:35px 15px;text-align:center;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}footer a{color:inherit}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.twocol{grid-template-columns:1fr}.metric .v{font-size:23px}}
+@media(max-width:460px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:14px}.barrow{grid-template-columns:90px 1fr 43px}}
+</style>
+</head>
+<body>
+<header><div class="brand">TAKKE.me · FIELD DATA TOOLS</div><h1>📡 Local Mesh Discovery 本機離線版分析器</h1><p>將 Meshtastic Discovery Report（PDF）或節點觀測 CSV 在本機瀏覽器中解析與分析。原始檔不會被上傳到 TAKKE.me；報告由你自行保存與分享。</p></header>
+<main>
+<section class="card">
+<h2>01｜匯入資料</h2>
+<p class="muted">支援：Meshtastic Android「Meshtastic Discovery Report」PDF、含節點欄位的 CSV、JSON。可一次選取多個檔案進行比較。PDF 文字解析使用 PDF.js 公開 CDN 程式庫；檔案內容仍在本機瀏覽器處理。</p>
+<input id="files" type="file" multiple accept=".pdf,.csv,.txt,.json,application/pdf,text/csv,application/json">
+<div class="row" style="margin-top:12px">
+<button id="analyze">解析並分析</button><button class="secondary" id="demo">載入內建測試資料</button><button class="secondary" id="clear">清除資料</button>
+<span class="muted" id="status" role="status">尚未載入資料</span>
+</div>
+<div class="notice"><b>格式驗證說明：</b>已依照實際的 Meshtastic Android Discovery Report PDF 結構設計解析器（Session Overview、Preset、Channel utilization、Packets TX/RX、Discovered Nodes）。PDF 報告通常沒有節點經緯度，因此不會推算或捏造節點位置。CSV 欄位則按檔案實際欄名自動對應，無法識別的欄位會保留在原始匯出中，不會猜測其意義。</div>
+</section>
+
+<section id="results" class="hidden">
+<section class="card"><h2>02｜觀測摘要</h2><div class="grid" id="metrics"></div><div id="sessions" style="margin-top:13px"></div><div id="logAnalysis"></div></section>
+<div class="twocol">
+<section class="card"><h2>📶 SNR 分布</h2><div id="snrChart" class="chartbox"></div><p class="muted">僅統計檔案中有提供且可解析的 SNR。這是收到紀錄的分布，不代表雙向鏈路品質。</p></section>
+<section class="card"><h2>🧭 RSSI 分布</h2><div id="rssiChart" class="chartbox"></div><p class="muted">RSSI 未提供或以破折號表示的紀錄不納入數值統計。</p></section>
+</div>
+<section class="card"><h2>🗺️ 地圖與位置資料</h2><div id="mapNotice" class="notice">尚未載入資料。</div><div id="map" style="margin-top:12px"></div><div class="row" style="margin-top:12px">
+<div class="field"><label for="scanLat">本次掃描位置緯度（選填）</label><input id="scanLat" type="number" step="any" placeholder="例如 24.957"></div>
+<div class="field"><label for="scanLon">本次掃描位置經度（選填）</label><input id="scanLon" type="number" step="any" placeholder="例如 121.537"></div>
+<button class="secondary" id="showMap">顯示掃描位置</button>
+</div><p class="muted">Discovery Report 的節點距離沒有方位角，不能用來計算節點座標。只有使用者手動輸入掃描位置時，地圖才會顯示該位置。底圖使用 ESRI 圖磚，需連網。</p></section>
+<section class="card"><div class="row"><div class="grow"><h2>03｜節點紀錄</h2><p class="muted">可搜尋節點名稱，並依 SNR、RSSI、距離排序。重複節點仍按每次掃描分開保留，以便比較。</p></div><div><label for="search">搜尋節點</label><input id="search" type="text" placeholder="名稱或 ID"></div></div><div class="tablewrap"><table><thead><tr><th>資料集</th><th>節點名稱</th><th>類型 / Payload</th><th>SNR (dB)</th><th>RSSI (dBm)</th><th>距離（公制）</th><th>座標</th></tr></thead><tbody id="nodes"></tbody></table></div><p class="muted" id="nodeCount"></p></section>
+<section class="card"><h2>04｜跨次比較</h2><div id="compare"></div><p class="muted">不同掃描的節點數、Channel Utilisation、Packets RX 等數值可以比較；測試時長、Preset、設備或環境不同時，差異不應直接歸因於單一因素。</p></section>
+<section class="card"><h2>05｜匯出分析結果</h2><div class="row"><button id="exportJson">下載 JSON</button><button id="exportCsv" class="secondary">下載節點 CSV</button><button id="exportHtml" class="secondary">下載獨立報告 HTML</button></div><p class="muted">匯出動作只會在本機產生檔案，不會自動發布到網站。</p></section>
+</section>
+<section class="card"><h2>資料處理原則</h2><ul><li>節點「被觀測到」不等於已證明可雙向穩定通訊。</li><li>Discovery Report 的距離是報告提供的距離文字，沒有方位資訊時不轉換成地理座標。</li><li>Channel Utilisation、Packet success、Airtime rate 以原報告數值呈現，不自行修正負值或推測公式。</li><li>PDF 文字抽取可能受到 PDF 版本、字型或排版影響；解析結果應與原始報告抽查核對。</li></ul></section>
+</main>
+<footer><a href="https://alpha.takke.me/" target="_blank" rel="noopener">🫶 Made by TAKKE.me</a> · Local-first analysis · 測試版 v0.1.0</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+let datasets = [], allNodes = [], mapObj = null, marker = null;
+if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const num = v => { if(v===null||v===undefined||String(v).trim()===""||/^(—|–|-|n\/a|null)$/i.test(String(v).trim())) return null; const m=String(v).replace(/,/g,"").match(/-?\d+(?:\.\d+)?/); return m?Number(m[0]):null; };
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const mean = a => a.length ? a.reduce((s,x)=>s+x,0)/a.length : null;
+const fmt = (v,d=1) => v===null||v===undefined||!Number.isFinite(v)?"—":Number(v).toFixed(d);
+function decodeTextBuffer(buffer){
+ const bytes=new Uint8Array(buffer);
+ if(bytes.length>=2&&bytes[0]===0xff&&bytes[1]===0xfe)return new TextDecoder("utf-16le").decode(bytes.subarray(2));
+ if(bytes.length>=2&&bytes[0]===0xfe&&bytes[1]===0xff)return new TextDecoder("utf-16be").decode(bytes.subarray(2));
+ return new TextDecoder("utf-8").decode(bytes);
+}
+function csvParse(text){
+ text=String(text).replace(/^\uFEFF/,"").replace(/\u0000/g,"");
+ const sample=text.split(/\r?\n/).filter(x=>x.trim()).slice(0,8).join("\n");
+ const delimiters=[",",";","\t","|"];
+ const delim=delimiters.map(d=>({d,n:(sample.match(new RegExp(d==="|"?"\\|":d==="\t"?"\\t":d===";"?";":",","g"))||[]).length})).sort((a,b)=>b.n-a.n)[0].d;
+ let rows=[],row=[],cell="",q=false;
+ for(let i=0;i<text.length;i++){let c=text[i],n=text[i+1];
+  if(q){if(c==='"'&&n==='"'){cell+='"';i++;}else if(c==='"')q=false;else cell+=c;}
+  else if(c==='"')q=true;
+  else if(c===delim){row.push(cell.trim());cell="";}
+  else if(c==='\n'){row.push(cell.replace(/\r$/,"" ).trim());rows.push(row);row=[];cell="";}
+  else cell+=c;
+ }
+ if(cell.length||row.length){row.push(cell.replace(/\r$/,"" ).trim());rows.push(row);}
+ const nonempty=rows.filter(r=>r.some(c=>String(c).trim()!==""));if(!nonempty.length)return [];
+ const headers=nonempty.shift().map(h=>String(h).trim().replace(/^\uFEFF/,""));
+ return nonempty.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]??"").trim()])));
+}
+function findVal(o, names){const entries=Object.entries(o);for(const n of names){const target=n.toLowerCase().replace(/[\s_-]/g,"");const hit=entries.find(([k,v])=>k.toLowerCase().replace(/[\s_-]/g,"")===target);if(hit)return hit[1];}return "";}
+function distanceMetric(raw,header=""){
+ let s=String(raw??"").trim(); if(!s || /^(—|–|-|n\/a|null)$/i.test(s)) return null;
+ const m=s.replace(/,/g,"").match(/^\s*(-?\d+(?:\.\d+)?)\s*(ft|feet|foot|mi|mile|miles|km|kilometers?|m|meters?|公里|公尺|米)?\s*$/i);
+ if(!m)return null;
+ const v=Number(m[1]),u=(m[2]||"").toLowerCase(),h=String(header).toLowerCase().replace(/[^a-z0-9]/g,"");
+ if(["ft","feet","foot"].includes(u)||(!u&&/(feet|foot|distanceft|rangeft)$/.test(h)))return v*0.0003048;
+ if(["mi","mile","miles"].includes(u)||(!u&&/(mile|distancemi|rangemi)$/.test(h)))return v*1.609344;
+ if(u==="km"||u.startsWith("kilometer")||u==="公里"||(!u&&/(distancekm|rangekm)$/.test(h)))return v;
+ if(!u&&/(distancem|rangem|meters|metres)$/.test(h))return v/1000;
+ if(u==="m"||u.startsWith("meter")||u==="公尺"||u==="米")return v/1000;
+ return null;
+}
+function displayDistance(raw,kmOverride=null){const km=Number.isFinite(kmOverride)?kmOverride:distanceMetric(raw); if(km===null) return raw?String(raw):"—"; if(km<1) return `${(km*1000).toLocaleString("zh-TW",{maximumFractionDigits:0})} 公尺`; return `${km.toLocaleString("zh-TW",{maximumFractionDigits:2})} 公里`;}
+function normalizeCsv(rows,label){
+ const out=[];
+ for(const r of rows){
+  const name=findVal(r,["sender name","senderName","name","node name","node","long name","longName","user long name","short name","shortName","user","from","from id","fromId","node id","nodeId","node id hex","id","device name"]);
+  const snr=num(findVal(r,["rx snr","snr","snr db","snr (db)","signal to noise ratio"])),rssi=num(findVal(r,["rx rssi","rssi","rssi dbm","rssi (dbm)","received signal strength"]));
+  const lat=num(findVal(r,["sender lat","sender latitude","lat","latitude","gps latitude","position latitude","rx lat","rx latitude"])),lon=num(findVal(r,["sender long","sender lon","sender longitude","lon","lng","longitude","gps longitude","position longitude","rx long","rx lon","rx longitude"]));
+  const distEntry=Object.entries(r).find(([k,v])=>/(distance|range|distancem|distancemi|distancekm|distanceft)/i.test(k)&&String(v??"").trim()!=="");
+  const dist=distEntry?distEntry[1]:findVal(r,["distance","range"]),distHeader=distEntry?distEntry[0]:"distance";
+  const type=findVal(r,["type","neighbor type","relation","direct/mesh","neighborType","node type","payload"])||"未標示";
+  const id=findVal(r,["node id","nodeId","id","from id","fromId","user id"]);
+  if(!String(name).trim()&&!String(id).trim()&&!Number.isFinite(lat)&&!Number.isFinite(lon)&&snr===null&&rssi===null)continue;
+  out.push({dataset:label,name:String(name||id||"未命名節點"),type,snr,rssi,distance:dist||"",distanceKm:distanceMetric(dist,distHeader),lat,lon,raw:r});
+ }
+ return out;
+}
+function parseDiscoveryText(text,label){
+ const t=text.replace(/\u0000/g," ").replace(/\u00a0/g," ").replace(/[ \t]+/g," ");
+ const pick=(re)=>{const m=t.match(re);return m?m[1].trim():null;};
+ const meta={
+  source:"Meshtastic Android Discovery Report PDF",
+  date:pick(/Date:\s*([^\r\n]+)/i),
+  uniqueNodes:num(pick(/Total unique nodes:\s*([\d,]+)/i)||pick(/Unique nodes:\s*([\d,]+)/i)),
+  dwellTime:pick(/Total dwell time:\s*([^\r\n]+)/i)||pick(/Dwell time:\s*([^\r\n]+)/i),
+  status:pick(/Status:\s*([^\r\n]+)/i),
+  channelUtilization:num(pick(/Channel utilization:\s*(-?\d+(?:\.\d+)?)\s*%/i)),
+  messages:num(pick(/Total messages:\s*(-?\d+)/i)||pick(/Messages:\s*(-?\d+)/i)),
+  sensorPackets:num(pick(/Total sensor packets:\s*(-?\d+)/i)),
+  preset:pick(/Preset:\s*([A-Z0-9_]+)/i),
+  directNeighbors:num(pick(/Direct neighbors:\s*([\d,]+)/i)),
+  meshNeighbors:num(pick(/Mesh neighbors:\s*([\d,]+)/i)),
+  airtimeRate:num(pick(/Airtime rate:\s*(-?\d+(?:\.\d+)?)\s*%/i)),
+  packetSuccess:num(pick(/Packet success:\s*(-?\d+(?:\.\d+)?)\s*%/i)),
+  packetsTx:num(pick(/Packets TX:\s*([\d,]+)/i)),
+  packetsRx:num(pick(/Packets RX:\s*([\d,]+)/i)),
+  analysis:pick(/Analysis:\s*([^\r\n]+)/i)
+ };
+ const nodes=[];
+ // PDFs usually contain pipe-delimited node rows. Match the whole extracted text to tolerate line-wrap differences.
+ const re=/(.{1,160}?)\s*\|\s*(direct|mesh|indirect|unknown)\s*\|\s*SNR:\s*(-?\d+(?:\.\d+)?)\s*dB\s*\|\s*RSSI:\s*([^|]+?)(?:\s*\|\s*([0-9,.]+\s*(?:ft|feet|mi|miles|km|m|公里|公尺)))?(?=\s*(?:.{1,160}?\s*\|\s*(?:direct|mesh|indirect|unknown)\s*\|\s*SNR:|AI Analysis|Generated by|$))/gi;
+ let m;
+ while((m=re.exec(t))!==null){
+  let name=m[1].replace(/Discovered Nodes\s*\(\d+\)/i,"").trim().replace(/^[|·\s]+|[|·\s]+$/g,"");
+  if(!name||/^(Session Overview|Analysis|Preset|Date:)/i.test(name))continue;
+  nodes.push({dataset:label,name,type:m[2].toLowerCase(),snr:num(m[3]),rssi:num(m[4]),distance:(m[5]||"").trim(),distanceKm:distanceMetric(m[5]||""),lat:null,lon:null,raw:{name,type:m[2],snr:m[3],rssi:m[4],distance:m[5]||""}});
+ }
+ // Fallback line parser for PDF.js text order variations.
+ if(nodes.length < (meta.uniqueNodes||0)){
+  nodes.length=0;
+  for(const line of t.split(/\n/)){
+   const lm=line.match(/^(.{1,120}?)\s*\|\s*(direct|mesh|indirect|unknown)\s*\|\s*SNR:\s*(-?\d+(?:\.\d+)?)\s*dB\s*\|\s*RSSI:\s*([^|]+?)(?:\s*\|\s*(.+))?$/i);
+   if(lm)nodes.push({dataset:label,name:lm[1].trim(),type:lm[2].toLowerCase(),snr:num(lm[3]),rssi:num(lm[4]),distance:(lm[5]||"").trim(),distanceKm:distanceMetric(lm[5]||""),lat:null,lon:null,raw:{}});
+  }
+ }
+ meta.parsedNodes=nodes.length;
+ return {label,meta,nodes,kind:"discovery-pdf"};
+}
+async function readPdf(file){
+ if(!window.pdfjsLib)throw new Error("PDF 解析程式庫未載入。請連網重新整理後再試，或改用 CSV/JSON。");
+ const buf=await file.arrayBuffer(),pdf=await pdfjsLib.getDocument({data:buf}).promise;let pages=[];
+ for(let p=1;p<=pdf.numPages;p++){const page=await pdf.getPage(p),tc=await page.getTextContent();let items=tc.items.filter(x=>x.str&&x.str.trim());
+  // Restore visual lines using y coordinates; PDF text items can split each node into several fragments.
+  const lines=[];
+  for(const it of items){const y=Math.round(it.transform[5]/2)*2;let line=lines.find(x=>Math.abs(x.y-y)<=2);if(!line){line={y,parts:[]};lines.push(line);}line.parts.push({x:it.transform[4],s:it.str});}
+  lines.sort((a,b)=>b.y-a.y);
+  pages.push(lines.map(l=>l.parts.sort((a,b)=>a.x-b.x).map(x=>x.s).join(" ")).join("\n"));
+ }
+ return parseDiscoveryText(pages.join("\n"),file.name);
+}
+async function readFile(file){
+ const ext=file.name.split(".").pop().toLowerCase();
+ if(ext==="pdf")return await readPdf(file);
+ const text=decodeTextBuffer(await file.arrayBuffer());
+ if(ext==="json"){
+  const obj=JSON.parse(text),rows=Array.isArray(obj)?obj:(obj.nodes||obj.discoveredNodes||obj.data||[]);
+  const ds={label:file.name,meta:{source:"JSON",date:obj.date||obj.timestamp||null,preset:obj.preset||null,uniqueNodes:rows.length},nodes:normalizeCsv(rows,file.name),kind:"json"};
+  if(obj.session||obj.summary)ds.meta={...ds.meta,...(obj.session||obj.summary)};
+  return ds;
+ }
+ const rows=csvParse(text);
+ if(!rows.length)throw new Error("CSV 沒有可讀取的資料列");
+ const nodes=normalizeCsv(rows,file.name);
+ if(!nodes.length)throw new Error("CSV 已讀取但無法辨識節點資料。請確認 CSV 第一列是欄位名稱。");
+ const first=rows[0]||{}, keys=Object.keys(first).map(k=>k.toLowerCase().trim());
+ const isDatalog=keys.includes("sender name")&&keys.includes("rx snr")&&keys.includes("payload");
+ const dates=rows.map(r=>findVal(r,["date"])).filter(Boolean).sort();
+ const times=rows.map(r=>findVal(r,["time"])).filter(Boolean).sort();
+ const senders=new Set(rows.map(r=>findVal(r,["sender name","from"])).filter(Boolean));
+ const meta={source:isDatalog?"Meshtastic datalog CSV":"CSV",date:dates.length?(dates[0]===dates[dates.length-1]?dates[0]:dates[0]+" 至 "+dates[dates.length-1]):null,rows:rows.length,uniqueNodes:senders.size||new Set(nodes.map(n=>n.name)).size,isDatalog};
+ return {label:file.name,meta,nodes,kind:isDatalog?"meshtastic-datalog":"csv",rawRows:rows};
+}
+function metric(k,v){return `<div class="metric"><div class="v">${esc(v)}</div><div class="k">${esc(k)}</div></div>`;}
+function chartHtml(values,kind){
+ if(!values.length)return '<div class="empty">這份資料沒有可用的數值</div>';
+ let buckets;
+ if(kind==="snr")buckets=[[-20,-10,"≤ -10"],[-10,-5,"-10 至 -5"],[-5,0,"-5 至 0"],[0,5,"0 至 5"],[5,10,"5 至 10"],[10,100,"≥ 10"]];
+ else buckets=[[-150,-120,"≤ -120"],[-120,-110,"-120 至 -110"],[-110,-100,"-110 至 -100"],[-100,-90,"-100 至 -90"],[-90,0,"≥ -90"]];
+ const counts=buckets.map(([a,b])=>values.filter(v=>v>=a&&(b===100||v<b)).length),max=Math.max(1,...counts);
+ return `<div class="bars">${buckets.map((b,i)=>`<div class="barrow"><span>${b[2]}</span><div class="track"><div class="fill" style="width:${counts[i]/max*100}%"></div></div><b>${counts[i]}</b></div>`).join("")}</div><p class="muted">有效樣本 ${values.length}；中位數 ${fmt([...values].sort((a,b)=>a-b)[Math.floor((values.length-1)/2)],1)}</p>`;
+}
+function renderLogAnalysis(){
+ const logs=datasets.filter(d=>d.kind==="meshtastic-datalog"&&d.rawRows);
+ if(!logs.length){$("logAnalysis").innerHTML="";return;}
+ const sections=logs.map(d=>{
+  const rows=d.rawRows, count=rows.length;
+  const get=(r,k)=>String(r[k]??"").trim();
+  const dates=rows.map(r=>get(r,"date")).filter(Boolean).sort();
+  const times=rows.map(r=>get(r,"time")).filter(Boolean).sort();
+  const uniqueById=new Map();
+  for(const r of rows){const id=get(r,"from")||get(r,"sender name")||"unknown";if(!uniqueById.has(id))uniqueById.set(id,{id,name:get(r,"sender name")||id,count:0,snrs:[],dist:[],lat:get(r,"sender lat"),lon:get(r,"sender long"),payloads:new Set(),relays:new Set()});const n=uniqueById.get(id);n.count++;const sn=num(get(r,"rx snr"));if(sn!==null)n.snrs.push(sn);const di=num(get(r,"distance(m)"));if(di!==null&&di>0)n.dist.push(di);if(get(r,"payload"))n.payloads.add(get(r,"payload"));if(get(r,"relay node"))n.relays.add(get(r,"relay node"));}
+  const nodes=[...uniqueById.values()].sort((a,b)=>b.count-a.count);
+  const payloadCounts=new Map(),relayCounts=new Map();
+  for(const r of rows){const pl=get(r,"payload");if(pl)payloadCounts.set(pl,(payloadCounts.get(pl)||0)+1);const re=get(r,"relay node");if(re)relayCounts.set(re,(relayCounts.get(re)||0)+1);}
+  const snrs=rows.map(r=>num(get(r,"rx snr"))).filter(Number.isFinite);
+  const dists=rows.map(r=>num(get(r,"distance(m)"))).filter(v=>Number.isFinite(v)&&v>0);
+  const coords=rows.filter(r=>Number.isFinite(num(get(r,"sender lat")))&&Number.isFinite(num(get(r,"sender long"))));
+  const top=(map,n=8)=>[...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n);
+  const rowTable=nodes.slice(0,12).map(n=>`<tr><td>${esc(n.name)}</td><td>${n.count}</td><td>${fmt(mean(n.snrs),1)}</td><td>${n.dist.length?Math.round(mean(n.dist)).toLocaleString("zh-TW")+" m":"—"}</td><td>${n.payloads.size}</td></tr>`).join("");
+  const payloadTable=top(payloadCounts).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v}</td><td>${fmt(v/count*100,1)}%</td></tr>`).join("");
+  const relayTable=top(relayCounts).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v}</td></tr>`).join("");
+  return `<div class="notice" style="margin-top:14px"><b>已辨識為 Meshtastic datalog：</b>這不是 Discovery Report 的「每節點一列」格式，而是逐筆封包／觀測紀錄；以下依原始紀錄分析，不會把每一列誤當成不同節點。日期範圍：${esc(dates[0]||"—")}${dates.length&&dates[dates.length-1]!==dates[0]?" 至 "+esc(dates[dates.length-1]):""}。</div>
+  <div class="grid" style="margin-top:10px">${metric("觀測紀錄",count.toLocaleString("zh-TW"))}${metric("不同節點 ID",uniqueById.size)}${metric("有 SNR 紀錄",snrs.length.toLocaleString("zh-TW"))}${metric("平均 SNR",fmt(mean(snrs),2)+" dB")}${metric("正距離樣本",dists.length.toLocaleString("zh-TW"))}${metric("有發送端座標",coords.length.toLocaleString("zh-TW"))}</div>
+  <div class="twocol" style="margin-top:12px"><div><h3>📡 最常被記錄的節點（前 12）</h3><div class="tablewrap"><table><thead><tr><th>節點</th><th>紀錄數</th><th>平均 SNR</th><th>平均距離</th><th>Payload 類別數</th></tr></thead><tbody>${rowTable}</tbody></table></div></div>
+  <div><h3>📦 Payload 類型</h3><div class="tablewrap"><table><thead><tr><th>類型</th><th>筆數</th><th>比例</th></tr></thead><tbody>${payloadTable}</tbody></table></div><h3 style="margin-top:14px">🔁 Relay Node 出現次數</h3><div class="tablewrap"><table><thead><tr><th>Relay ID</th><th>筆數</th></tr></thead><tbody>${relayTable||'<tr><td colspan="2">沒有 relay node 值</td></tr>'}</tbody></table></div></div></div>`;
+ }).join("");
+ $("logAnalysis").innerHTML=sections;
+}
+function render(){
+ allNodes=datasets.flatMap(d=>d.nodes);
+ $("results").classList.toggle("hidden",datasets.length===0);
+ if(!datasets.length){$("status").textContent="尚未載入資料";return;}
+ const isPdf=datasets.some(d=>d.kind==="discovery-pdf");
+ const isDatalog=datasets.some(d=>d.kind==="meshtastic-datalog");
+ const snrs=allNodes.map(n=>n.snr).filter(Number.isFinite),rssis=allNodes.map(n=>n.rssi).filter(Number.isFinite);
+ const totalNodes=allNodes.length,unique=new Set(allNodes.map(n=>n.name)).size;
+ const channel=datasets.map(d=>d.meta.channelUtilization).filter(Number.isFinite);
+ const rx=datasets.map(d=>d.meta.packetsRx).filter(Number.isFinite);
+ $("metrics").innerHTML=metric("資料檔數",datasets.length)+metric("節點紀錄",totalNodes)+metric("不同節點名稱",unique)+metric("SNR 中位數",fmt(snrs.sort((a,b)=>a-b)[Math.floor((snrs.length-1)/2)],1)+" dB")+
+  (isPdf?metric("Channel Utilisation",channel.length?fmt(mean(channel),1)+"%":"—"):metric(isDatalog?"含發送端座標":"含座標紀錄",allNodes.filter(n=>Number.isFinite(n.lat)&&Number.isFinite(n.lon)).length))+
+  (isPdf?metric("Packets RX（各次合計）",rx.length?rx.reduce((a,b)=>a+b,0):"—"):metric("含 RSSI 紀錄",rssis.length))+
+  metric("SNR 有效樣本",snrs.length)+metric("RSSI 中位數",fmt(rssis.sort((a,b)=>a-b)[Math.floor((rssis.length-1)/2)],1)+" dBm");
+ $("sessions").innerHTML=datasets.map(d=>`<div style="padding:10px 0;border-top:1px solid var(--line)"><b>${esc(d.label)}</b> <span class="pill">${esc(d.kind)}</span><div class="muted">${esc(d.meta.date||"日期未提供")} · Preset：${esc(d.meta.preset||"未提供")} · 節點：${esc(d.meta.uniqueNodes??d.nodes.length)} · Channel Utilisation：${d.meta.channelUtilization==null?"—":esc(d.meta.channelUtilization)+"%"} · TX/RX：${d.meta.packetsTx??"—"}/${d.meta.packetsRx??"—"} · 解析到節點列：${d.nodes.length}</div></div>`).join("");
+ $("snrChart").innerHTML=chartHtml(snrs,"snr");$("rssiChart").innerHTML=chartHtml(rssis,"rssi");
+ const hasCoords=allNodes.some(n=>Number.isFinite(n.lat)&&Number.isFinite(n.lon));
+ $("mapNotice").textContent=hasCoords?"CSV 中包含可用座標，地圖可顯示這些座標點。":"目前資料未提供可用的節點經緯度。Discovery Report 的距離不含方向，因此不能把距離轉成節點座標；你可手動填入掃描位置，地圖只會標示掃描位置。";
+ if(hasCoords)loadMap().then(()=>{allNodes.filter(n=>Number.isFinite(n.lat)&&Number.isFinite(n.lon)).forEach(n=>L.circleMarker([n.lat,n.lon],{radius:5,color:"#087f8c"}).addTo(mapObj).bindPopup(esc(n.name)+"<br>SNR: "+esc(n.snr??"—")));});
+ renderNodes();renderCompare();renderLogAnalysis();$("status").textContent=`已載入 ${datasets.length} 份資料；共 ${totalNodes} 筆節點紀錄。`;
+}
+function renderNodes(){
+ const q=$("search").value.trim().toLowerCase(),rows=allNodes.filter(n=>(n.name+" "+(n.raw?.id||"")).toLowerCase().includes(q));
+ $("nodes").innerHTML=rows.slice(0,3000).map(n=>`<tr><td>${esc(n.dataset)}</td><td>${esc(n.name)}</td><td>${esc(n.type)}</td><td>${fmt(n.snr,1)}</td><td>${fmt(n.rssi,0)}</td><td>${esc(displayDistance(n.distance,n.distanceKm))}</td><td>${Number.isFinite(n.lat)&&Number.isFinite(n.lon)?esc(n.lat.toFixed(5)+", "+n.lon.toFixed(5)):"—"}</td></tr>`).join("");
+ $("nodeCount").textContent=`顯示 ${Math.min(rows.length,3000)} / ${rows.length} 筆${rows.length>3000?"（為避免瀏覽器負擔，表格最多顯示 3000 筆）":""}`;
+}
+function renderCompare(){
+ if(datasets.length<2){$("compare").innerHTML='<div class="empty">載入兩份以上資料，即可比較每次掃描的節點數、SNR、RSSI、Preset 與 RF 指標。</div>';return;}
+ $("compare").innerHTML=`<div class="tablewrap"><table><thead><tr><th>資料集</th><th>日期</th><th>Preset</th><th>節點列</th><th>唯一名稱</th><th>平均 SNR</th><th>平均 RSSI</th><th>Channel Utilisation</th><th>Packets RX</th></tr></thead><tbody>${datasets.map(d=>{let s=d.nodes.map(n=>n.snr).filter(Number.isFinite),r=d.nodes.map(n=>n.rssi).filter(Number.isFinite);return `<tr><td>${esc(d.label)}</td><td>${esc(d.meta.date||"—")}</td><td>${esc(d.meta.preset||"—")}</td><td>${d.nodes.length}</td><td>${new Set(d.nodes.map(n=>n.name)).size}</td><td>${fmt(mean(s),1)}</td><td>${fmt(mean(r),1)}</td><td>${d.meta.channelUtilization==null?"—":esc(d.meta.channelUtilization)+"%"}</td><td>${d.meta.packetsRx??"—"}</td></tr>`}).join("")}</tbody></table></div>`;
+}
+async function loadMap(){
+ if(!window.L){if(!document.getElementById("leafletCss")){let l=document.createElement("link");l.id="leafletCss";l.rel="stylesheet";l.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(l);let s=document.createElement("script");s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";document.head.appendChild(s);await new Promise((resolve,reject)=>{s.onload=resolve;s.onerror=reject;});}}
+ if(!mapObj){mapObj=L.map("map").setView([24.9,121.5],8);L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles © Esri",maxZoom:18}).addTo(mapObj);}
+}
+$("analyze").addEventListener("click",async()=>{
+ const files=[...$("files").files];if(!files.length){$("status").textContent="請先選擇 PDF、CSV 或 JSON 檔案。";return;}
+ $("analyze").disabled=true;$("status").textContent="正在本機解析…";datasets=[];
+ try{for(const f of files){$("status").textContent=`解析中：${f.name}`;datasets.push(await readFile(f));}render();}
+ catch(e){$("status").textContent="解析失敗："+e.message;console.error(e);render();}
+ finally{$("analyze").disabled=false;}
+});
+$("clear").addEventListener("click",()=>{datasets=[];$("files").value="";$("search").value="";$("results").classList.add("hidden");$("status").textContent="資料已清除";if(mapObj){mapObj.remove();mapObj=null;marker=null;}});
+$("search").addEventListener("input",renderNodes);
+$("showMap").addEventListener("click",async()=>{
+ const lat=num($("scanLat").value),lon=num($("scanLon").value);
+ if(lat===null||lon===null||lat < -90||lat>90||lon < -180||lon>180){$("mapNotice").textContent="請輸入有效的緯度（-90 至 90）及經度（-180 至 180）。";return;}
+ try{await loadMap();if(marker)marker.remove();marker=L.marker([lat,lon]).addTo(mapObj).bindPopup("使用者提供的掃描位置").openPopup();mapObj.setView([lat,lon],13);$("mapNotice").textContent="地圖已標示使用者提供的掃描位置；此位置不是由 PDF 報告推算而來。";}catch(e){$("mapNotice").textContent="地圖載入失敗；分析與匯出功能仍可使用。請檢查網路或 ESRI 圖磚服務。";}
+});
+function download(name,blob){const a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);}
+$("exportJson").addEventListener("click",()=>download("takke-local-mesh-analysis.json",new Blob([JSON.stringify({tool:"TAKKE.me Local Mesh Discovery Analyzer",version:"0.4.0",generatedAt:new Date().toISOString(),datasets},null,2)],{type:"application/json;charset=utf-8"})));
+$("exportCsv").addEventListener("click",()=>{const headers=["dataset","name","type","snr_db","rssi_dbm","distance_metric_display","distance_km","distance_original","latitude","longitude"];const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';const rows=[headers.join(","),...allNodes.map(n=>[n.dataset,n.name,n.type,n.snr,n.rssi,displayDistance(n.distance,n.distanceKm),n.distanceKm,n.distance,n.lat,n.lon].map(q).join(","))];download("takke-local-mesh-nodes.csv",new Blob(["\uFEFF"+rows.join("\r\n")],{type:"text/csv;charset=utf-8"}));});
+$("exportHtml").addEventListener("click",()=>{const data=JSON.stringify({generatedAt:new Date().toISOString(),datasets}).replace(/</g,"\\u003c");const report=`<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>TAKKE.me Local Mesh 報告</title><style>body{font:15px/1.6 system-ui;max-width:1000px;margin:30px auto;padding:0 16px;color:#17212b}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border-bottom:1px solid #ddd;padding:7px;text-align:left}th{background:#eef4f5}small{color:#65717d}</style><h1>📡 Local Mesh Discovery 分析報告</h1><p>TAKKE.me · 本機產生 · ${new Date().toLocaleString()}</p><div id="out"></div><script>const D=${data};const e=s=>String(s??"").replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;"}[c]));function displayDistance(raw){const s=String(raw??"").trim();const m=s.replace(/,/g,"").match(/^(\d+(?:\.\d+)?)\s*(ft|feet|foot|mi|mile|miles|km|kilometers?|m|meters?|公里|公尺|米)$/i);if(!m)return raw||"—";const v=+m[1],u=m[2].toLowerCase(),km=["ft","feet","foot"].includes(u)?v*0.0003048:["mi","mile","miles"].includes(u)?v*1.609344:(u==="km"||u.startsWith("kilometer")||u==="公里")?v:v/1000;return km<1?Math.round(km*1000).toLocaleString("zh-TW")+" 公尺":km.toLocaleString("zh-TW",{maximumFractionDigits:2})+" 公里";}let h="";for(const d of D.datasets){h+="<h2>"+e(d.label)+"</h2><p>日期："+e(d.meta.date||"—")+" · Preset："+e(d.meta.preset||"—")+" · Channel Utilisation："+e(d.meta.channelUtilization??"—")+"%</p><p>解析節點列："+d.nodes.length+" · SNR 有效樣本："+d.nodes.filter(n=>Number.isFinite(n.snr)).length+"</p><table><tr><th>節點</th><th>類型</th><th>SNR</th><th>RSSI</th><th>距離（公制）</th></tr>";for(const n of d.nodes){h+="<tr><td>"+e(n.name)+"</td><td>"+e(n.type)+"</td><td>"+e(n.snr??"—")+"</td><td>"+e(n.rssi??"—")+"</td><td>"+e(displayDistance(n.distance))+"</td></tr>";}h+="</table>";}document.getElementById("out").innerHTML=h;<\/script><hr><small>距離顯示為公制；原始距離文字仍保留於匯出資料。距離文字不含方位時不推算節點座標。觀測不等於已證明雙向穩定通訊。</small></html>`;download("takke-local-mesh-report.html",new Blob([report],{type:"text/html;charset=utf-8"}));});
+$("demo").addEventListener("click",()=>{
+ datasets=[
+ {label:"meshtastic_discovery_Oct_8,_00-53.pdf（內建格式測試）",kind:"discovery-pdf",meta:{source:"Test fixture based on actual report structure",date:"Oct 8, 00:53",uniqueNodes:48,dwellTime:"1h 0m",status:"Stopped",channelUtilization:4.0,messages:0,sensorPackets:3,preset:"MEDIUM_FAST",directNeighbors:48,meshNeighbors:0,airtimeRate:0.1,packetSuccess:42.9,packetsTx:6,packetsRx:189},nodes:[
+ {name:"TAKKE.me No1",type:"direct",snr:0,rssi:null,distance:"4,780 ft",distanceKm:distanceMetric("4,780 ft"),lat:null,lon:null,dataset:"Oct 8 test"},
+ {name:"PurpleMaple Xindian2",type:"direct",snr:9,rssi:-92,distance:"1,699 ft",distanceKm:distanceMetric("1,699 ft"),lat:null,lon:null,dataset:"Oct 8 test"},
+ {name:"HankLi-WT",type:"direct",snr:-9.5,rssi:-121,distance:"1.2 mi",distanceKm:distanceMetric("1.2 mi"),lat:null,lon:null,dataset:"Oct 8 test"},
+ {name:"Meshtastic 442b",type:"direct",snr:10.3,rssi:-89,distance:"7.3 mi",distanceKm:distanceMetric("7.3 mi"),lat:null,lon:null,dataset:"Oct 8 test"},
+ {name:"BV2CK-2",type:"direct",snr:10.3,rssi:-84,distance:"5.9 mi",distanceKm:distanceMetric("5.9 mi"),lat:null,lon:null,dataset:"Oct 8 test"}]},
+ {label:"meshtastic_discovery_Oct_9,_19-28.pdf（內建格式測試）",kind:"discovery-pdf",meta:{source:"Test fixture based on actual report structure",date:"Oct 9, 19:28",uniqueNodes:70,dwellTime:"1h 0m",status:"Stopped",channelUtilization:2.5,messages:0,sensorPackets:7,preset:"MEDIUM_FAST",directNeighbors:70,meshNeighbors:0,airtimeRate:-0.1,packetSuccess:38.9,packetsTx:8,packetsRx:542},nodes:[
+ {name:"Meshtastic 8512",type:"direct",snr:7.8,rssi:-101,distance:"5.5 mi",distanceKm:distanceMetric("5.5 mi"),lat:null,lon:null,dataset:"Oct 9 test"},
+ {name:"TAKKE.me #1",type:"direct",snr:0,rssi:null,distance:"1.2 mi",distanceKm:distanceMetric("1.2 mi"),lat:null,lon:null,dataset:"Oct 9 test"},
+ {name:"Meshtastic 046c",type:"direct",snr:-9.3,rssi:-120,distance:"9.1 mi",distanceKm:distanceMetric("9.1 mi"),lat:null,lon:null,dataset:"Oct 9 test"},
+ {name:"Meshtastic 9dc8",type:"direct",snr:10.3,rssi:-90,distance:"2 mi",distanceKm:distanceMetric("2 mi"),lat:null,lon:null,dataset:"Oct 9 test"},
+ {name:"CCW235-Office 太陽能中繼 MFS1",type:"direct",snr:10.5,rssi:-82,distance:"3.9 mi",distanceKm:distanceMetric("3.9 mi"),lat:null,lon:null,dataset:"Oct 9 test"}]}
+ ];render();$("status").textContent="已載入內建格式測試資料（各報告各抽取 5 筆示範節點；非完整原始資料）。";
+});
+})();
+</script>
+</body></html>
