@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sport10.org/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
-  <url><loc>https://sport10.org/blog.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://sport10.org/</loc><lastmod>2026-10-28</lastmod><priority>1.0</priority></url>
+  <url><loc>https://sport10.org/blog.html</loc><lastmod>2026-10-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://sport10.org/programs.html</loc><lastmod>2026-10-08</lastmod><priority>0.8</priority></url>
   <url><loc>https://sport10.org/rucking.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://sport10.org/chad1000x.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://sport10.org/posts/staka-skierg-indoor-skiing.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://sport10.org/posts/chad1000x-2026-xindian-registration.html</loc><lastmod>2026-10-28</lastmod><priority>0.6</priority></url>
   <url><loc>https://sport10.org/schedule.html</loc><lastmod>2026-10-08</lastmod><priority>0.8</priority></url>
   <url><loc>https://sport10.org/about.html</loc><lastmod>2022-06-01</lastmod><priority>0.7</priority></url>
   <url><loc>https://sport10.org/bitan-swim-2025q1.html</loc><lastmod>2025-01-03</lastmod><priority>0.7</priority></url>
@@ -218,7 +219,7 @@
   <url><loc>https://sport10.org/posts/covid19-exercise-day1.html</loc><lastmod>2021-05-16</lastmod><priority>0.6</priority></url>
   <url><loc>https://sport10.org/category-bitan.html</loc><lastmod>2026-10-08</lastmod><priority>0.4</priority></url>
   <url><loc>https://sport10.org/category-crossfit-hyrox.html</loc><lastmod>2026-10-08</lastmod><priority>0.4</priority></url>
-  <url><loc>https://sport10.org/category-events.html</loc><lastmod>2026-10-08</lastmod><priority>0.4</priority></url>
+  <url><loc>https://sport10.org/category-events.html</loc><lastmod>2026-10-28</lastmod><priority>0.4</priority></url>
   <url><loc>https://sport10.org/category-masters.html</loc><lastmod>2026-10-08</lastmod><priority>0.4</priority></url>
   <url><loc>https://sport10.org/category-news.html</loc><lastmod>2026-10-08</lastmod><priority>0.4</priority></url>
   <url><loc>https://sport10.org/category-running.html</loc><lastmod>2026-10-08</lastmod><priority>0.4</priority></url>
