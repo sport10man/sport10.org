@@ -5,7 +5,15 @@
   <link>https://sport10.org/index.html</link>
   <description>Sport10 運動實驗室 最新文章</description>
   <language>zh-TW</language>
-  <lastBuildDate>Wed, 28 Oct 2026 12:00:00 +0800</lastBuildDate>
+  <lastBuildDate>Fri, 30 Oct 2026 12:00:00 +0800</lastBuildDate>
+  <item>
+    <title>PRzilla：為 CrossFit 與混合型運動員打造的訓練數據中樞</title>
+    <link>https://sport10.org/posts/przilla-crossfit-training-data-hub.html</link>
+    <guid isPermaLink="true">https://sport10.org/posts/przilla-crossfit-training-data-hub.html</guid>
+    <pubDate>Fri, 30 Oct 2026 12:00:00 +0800</pubDate>
+    <category>technology</category><category>crossfit/hyrox</category>
+    <description>對 CrossFit 愛好者來說，記錄 WOD 成績大概是最容易被忽略的一件事。白板上的數字拍完照就過去了，幾個月後想回頭看自己的 Fran、Murph 到底進步多少，往往只剩一堆…</description>
+  </item>
   <item>
     <title>一階一階，往上走｜1000階登階日 #CHAD1000X 新店場報名開跑</title>
     <link>https://sport10.org/posts/chad1000x-2026-xindian-registration.html</link>
@@ -157,14 +165,6 @@
     <pubDate>Tue, 07 Apr 2026 17:51:18 +0800</pubDate>
     <category>technology</category>
     <description>最近一連串關於「跑山獸」和付費山搜的議題，在台灣的網路上討論熱絡。不過在紛紛擾擾之外，科技的發展卻是不停止的日益更新。如何在搜救任務之下，讓人手不足和高齡化的異質搜救團隊，能提升任…</description>
-  </item>
-  <item>
-    <title>災難時用 Meshtastic 要傳什麼？</title>
-    <link>https://sport10.org/posts/meshtastic.html</link>
-    <guid isPermaLink="true">https://sport10.org/posts/meshtastic.html</guid>
-    <pubDate>Sun, 05 Apr 2026 13:09:59 +0800</pubDate>
-    <category>technology</category>
-    <description>Mesh network 的好不用多說，但 mesh 不是只有 Meshtastic 而已。在我們探討更深入之前，我們來看看比較少被討論的關鍵因素：要傳什麼訊息？為什麼？遇到事情怎…</description>
   </item>
 </channel>
 </rss>
