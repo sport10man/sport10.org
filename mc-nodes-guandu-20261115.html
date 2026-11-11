@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MeshCore 節點配置海報</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif; background:#f3f0fa; display:flex; flex-direction:column; align-items:center; padding:24px; gap:16px;}
+  .btnrow { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+  button {
+    background:#6d4aff; color:#fff; border:none; border-radius:10px;
+    padding:14px 32px; font-size:18px; font-weight:600; cursor:pointer;
+    box-shadow:0 4px 12px rgba(109,74,255,.35);
+  }
+  button:hover { background:#5a38e8; }
+  button.secondary { background:#2b2350; }
+  button.secondary:hover { background:#1e1838; }
+  svg { max-width:100%; height:auto; border-radius:12px; box-shadow:0 8px 30px rgba(109,74,255,.18); }
+</style>
+</head>
+<body>
+<div class="btnrow">
+  <button onclick="downloadZIP()">⬇️ 下載 ZIP（PNG + HTML）</button>
+  <button onclick="downloadPNG()">⬇️ PNG</button>
+  <button class="secondary" onclick="downloadHTML()">⬇️ HTML</button>
+</div>
+
+<svg id="poster" xmlns="http://www.w3.org/2000/svg" width="900" height="2320" viewBox="0 0 900 2320">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d4aff"/><stop offset="1" stop-color="#a184ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#6d4aff" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="900" height="2320" fill="#f5f2fc"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="260" fill="url(#hdr)"/>
+  <text x="450" y="95" text-anchor="middle" fill="#fff" font-size="42" font-weight="bold" letter-spacing="5">🛰️ 關渡宮大型集會 LoRa 通訊備援</text>
+  <text x="450" y="146" text-anchor="middle" fill="#ffffff" opacity="0.9" font-size="23" letter-spacing="2">MeshCore 節點配置 · 通訊測試週報</text>
+  <rect x="270" y="180" width="360" height="42" rx="21" fill="#ffffff" opacity="0.18"/>
+  <text x="450" y="209" text-anchor="middle" fill="#fff" font-size="18" letter-spacing="1">🟣 WadaMesh · 新店碧潭 / 關渡宮地區</text>
+  <text x="845" y="244" text-anchor="end" fill="#fff" opacity="0.9" font-size="17">更新日期：2026/11/11</text>
+
+  <!-- ===== 節點配置 ===== -->
+  <text x="50" y="345" fill="#6d4aff" font-size="30" font-weight="bold" letter-spacing="3">▎節點配置</text>
+
+  <!-- 常駐 -->
+  <rect x="50" y="378" width="258" height="290" rx="16" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="72" y="430" fill="#8f6dff" font-size="21" font-weight="bold" letter-spacing="2">🏠 常駐節點</text>
+  <text x="72" y="492" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Room Server A</text>
+  <text x="72" y="530" font-size="18" fill="#6b678f" letter-spacing="1">住家（室內）</text>
+  <text x="72" y="588" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Repeater B</text>
+  <text x="72" y="626" font-size="18" fill="#6b678f" letter-spacing="1">戶外（街道）</text>
+
+  <!-- 應變 -->
+  <rect x="321" y="378" width="258" height="290" rx="16" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="343" y="430" fill="#8f6dff" font-size="21" font-weight="bold" letter-spacing="2">⛰️ 應變節點</text>
+  <text x="343" y="492" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Repeater C</text>
+  <text x="343" y="530" font-size="18" fill="#6b678f" letter-spacing="1">新店小獅山</text>
+  <text x="343" y="588" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Repeater D</text>
+  <text x="343" y="626" font-size="18" fill="#6b678f" letter-spacing="1">新店外挖子山</text>
+
+  <!-- 機動 -->
+  <rect x="592" y="378" width="258" height="290" rx="16" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="614" y="430" fill="#8f6dff" font-size="21" font-weight="bold" letter-spacing="2">🎒 機動節點</text>
+  <text x="614" y="492" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Companion E</text>
+  <text x="614" y="530" font-size="17" fill="#6b678f" letter-spacing="1">隨身攜帶（WadaMesh）</text>
+  <text x="614" y="588" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Companion F</text>
+  <text x="614" y="626" font-size="17" fill="#6b678f" letter-spacing="1">隨身攜帶（WadaMesh）</text>
+
+  <!-- ===== 本週測試結果 ===== -->
+  <text x="50" y="760" fill="#6d4aff" font-size="30" font-weight="bold" letter-spacing="3">▎本週測試結果</text>
+
+  <rect x="50" y="792" width="800" height="62" fill="#6d4aff"/>
+  <text x="82" y="833" fill="#fff" font-size="20" font-weight="bold" letter-spacing="2">#</text>
+  <text x="128" y="833" fill="#fff" font-size="20" font-weight="bold" letter-spacing="2">項目</text>
+  <text x="420" y="833" fill="#fff" font-size="20" font-weight="bold" letter-spacing="2">環境 / 附註</text>
+  <text x="698" y="833" fill="#fff" font-size="20" font-weight="bold" letter-spacing="2">路徑</text>
+
+  <rect x="50" y="854" width="800" height="78" fill="#ffffff"/>
+  <text x="82" y="903" font-size="20" fill="#2b2350">1</text>
+  <text x="128" y="903" font-size="20" fill="#2b2350" letter-spacing="1">輕軌新和國小站</text>
+  <text x="420" y="903" font-size="19" fill="#6b678f" letter-spacing="1">半封閉月台</text>
+  <text x="698" y="903" font-size="21" fill="#6d4aff" font-weight="bold" letter-spacing="1">E → A ✅</text>
+
+  <rect x="50" y="932" width="800" height="78" fill="#f1ecff"/>
+  <text x="82" y="972" font-size="20" fill="#2b2350">2</text>
+  <text x="128" y="972" font-size="20" fill="#2b2350" letter-spacing="1">捷運十四張站</text>
+  <text x="128" y="1000" font-size="16" fill="#8a86a8" letter-spacing="1">月台內部全家便利商店咖啡座</text>
+  <text x="420" y="972" font-size="19" fill="#6b678f" letter-spacing="1">室內月台</text>
+  <text x="420" y="1000" font-size="16" fill="#8a86a8" letter-spacing="1">1111 登階日雨天地點</text>
+  <text x="698" y="982" font-size="21" fill="#6d4aff" font-weight="bold" letter-spacing="1">E → A ✅</text>
+
+  <rect x="50" y="1010" width="800" height="78" fill="#ffffff"/>
+  <text x="82" y="1050" font-size="20" fill="#2b2350">3</text>
+  <text x="128" y="1050" font-size="20" fill="#2b2350" letter-spacing="1">碧潭吊橋</text>
+  <text x="420" y="1050" font-size="19" fill="#6b678f" letter-spacing="1">戶外</text>
+  <text x="420" y="1078" font-size="16" fill="#8a86a8" letter-spacing="1">1111 登階日晴天地點</text>
+  <text x="698" y="1060" font-size="21" fill="#6d4aff" font-weight="bold" letter-spacing="1">E → A ✅</text>
+
+  <rect x="50" y="1088" width="800" height="78" fill="#f1ecff"/>
+  <text x="82" y="1128" font-size="20" fill="#2b2350">4</text>
+  <text x="128" y="1128" font-size="20" fill="#2b2350" letter-spacing="1">Companion F</text>
+  <text x="128" y="1156" font-size="16" fill="#8a86a8" letter-spacing="1">讀取 Room Server 未讀訊息</text>
+  <text x="420" y="1128" font-size="19" fill="#6b678f" letter-spacing="1">離線待機</text>
+  <text x="420" y="1156" font-size="16" fill="#8a86a8" letter-spacing="1">隔 2 小時後讀取</text>
+  <text x="698" y="1138" font-size="21" fill="#6d4aff" font-weight="bold" letter-spacing="1">F → A ✅</text>
+
+  <rect x="50" y="1198" width="800" height="66" rx="12" fill="#e8f8ee" stroke="#bfe8cf"/>
+  <text x="450" y="1241" text-anchor="middle" fill="#1c7c40" font-size="22" font-weight="bold" letter-spacing="2">✅ 以上傳訊全部成功</text>
+
+  <!-- 前進佈署調整 -->
+  <text x="50" y="1350" fill="#8f6dff" font-size="24" font-weight="bold" letter-spacing="3">▸ 前進佈署調整</text>
+
+  <rect x="50" y="1378" width="800" height="110" rx="16" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="82" y="1424" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Repeater G</text>
+  <text x="300" y="1424" font-size="19" fill="#6b678f" letter-spacing="1">關渡宮對面山坡（新應變節點）</text>
+  <text x="82" y="1464" font-size="21" fill="#2b2350" font-weight="bold" letter-spacing="1">Companion E</text>
+  <text x="300" y="1464" font-size="19" fill="#6b678f" letter-spacing="1">維持隨身攜帶（WadaMesh）</text>
+
+  <!-- 預期通訊鏈路 -->
+  <text x="50" y="1560" fill="#8f6dff" font-size="24" font-weight="bold" letter-spacing="3">▸ 預期通訊鏈路</text>
+
+  <rect x="50" y="1588" width="800" height="86" rx="14" fill="#2b2350" filter="url(#shadow)"/>
+  <text x="88" y="1643" font-size="20" fill="#ffffff" font-weight="bold" letter-spacing="3" style="font-family:'SF Mono','Menlo',monospace">E → G → C → B → A</text>
+  <text x="812" y="1643" text-anchor="end" font-size="18" fill="#9d93d9" letter-spacing="2">主路線</text>
+
+  <rect x="50" y="1694" width="800" height="86" rx="14" fill="#2b2350" filter="url(#shadow)"/>
+  <text x="88" y="1749" font-size="20" fill="#ffffff" font-weight="bold" letter-spacing="3" style="font-family:'SF Mono','Menlo',monospace">E → G → D → B → A</text>
+  <text x="812" y="1749" text-anchor="end" font-size="18" fill="#9d93d9" letter-spacing="2">備援路線</text>
+
+  <!-- ===== 路徑驗證結果 ===== -->
+  <text x="50" y="1875" fill="#6d4aff" font-size="30" font-weight="bold" letter-spacing="3">▎路徑驗證結果</text>
+
+  <rect x="50" y="1908" width="800" height="86" rx="12" fill="#e8f8ee" stroke="#bfe8cf"/>
+  <text x="88" y="1954" font-size="21" fill="#1c7c40" font-weight="bold" letter-spacing="2" style="font-family:'SF Mono','Menlo',monospace">E → G → C → B → A</text>
+  <text x="88" y="1984" font-size="17" fill="#4d9d68" letter-spacing="2">主路線</text>
+  <text x="812" y="1964" text-anchor="end" font-size="24" fill="#1c7c40" font-weight="bold">✅ 已驗證</text>
+
+  <rect x="50" y="2014" width="800" height="86" rx="12" fill="#e8f8ee" stroke="#bfe8cf"/>
+  <text x="88" y="2060" font-size="21" fill="#1c7c40" font-weight="bold" letter-spacing="2" style="font-family:'SF Mono','Menlo',monospace">E → G → D → B → A</text>
+  <text x="88" y="2090" font-size="17" fill="#4d9d68" letter-spacing="2">備援路線</text>
+  <text x="812" y="2070" text-anchor="end" font-size="24" fill="#1c7c40" font-weight="bold">✅ 已驗證</text>
+
+  <rect x="50" y="2122" width="800" height="60" rx="12" fill="#e8f8ee" stroke="#bfe8cf"/>
+  <text x="450" y="2162" text-anchor="middle" fill="#1c7c40" font-size="21" font-weight="bold" letter-spacing="2">🎉 所有準備實驗的路徑全數驗證完成</text>
+
+  <!-- Footer -->
+  <line x1="50" y1="2225" x2="850" y2="2225" stroke="#ded5ff" stroke-width="2"/>
+  <text x="60" y="2262" fill="#8a86a8" font-size="16" letter-spacing="1">相關設定：有空再分享 ｜ 📧 tak.ywtcu@simplelogin.com</text>
+  <text x="845" y="2262" text-anchor="end" fill="#8a86a8" font-size="16" letter-spacing="1">TAKKE.me</text>
+</svg>
+
+<script>
+const SVG_W = 1800, SVG_H = 4640;
+
+function renderPNG(cb) {
+  const svg = document.getElementById("poster");
+  const xml = new XMLSerializer().serializeToString(svg);
+  const blob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = SVG_W;
+    canvas.height = SVG_H;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#f5f2fc";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    URL.revokeObjectURL(url);
+    canvas.toBlob(b => cb(b), "image/png");
+  };
+  img.src = url;
+}
+
+function getHTMLBlob() {
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  return new Blob([html], { type: "text/html;charset=utf-8" });
+}
+
+function save(blob, name) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.download = name;
+  a.href = url;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function downloadPNG() {
+  renderPNG(b => save(b, "meshcore-nodes-20261111.png"));
+}
+
+function downloadHTML() {
+  save(getHTMLBlob(), "meshcore-poster-20261111.html");
+}
+
+/* --- 最小 ZIP 打包器（STORE 不壓縮，含 CRC32） --- */
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+
+function crc32(buf) {
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < buf.length; i++) c = CRC_TABLE[(c ^ buf[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+
+function makeZip(entries) {
+  // entries: [{name, data(Uint8Array)}]
+  const enc = new TextEncoder();
+  const chunks = [];
+  const central = [];
+  let offset = 0;
+
+  for (const e of entries) {
+    const nameBytes = enc.encode(e.name);
+    const crc = crc32(e.data);
+    const sz = e.data.length;
+
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true);   // local file header
+    lh.setUint16(4, 20, true);           // version
+    lh.setUint16(6, 0, true);            // flags
+    lh.setUint16(8, 0, true);            // method: store
+    lh.setUint16(10, 0, true);           // time
+    lh.setUint16(12, 0x58D1, true);      // date (2026-11-11 approx)
+    lh.setUint32(14, crc, true);
+    lh.setUint32(18, sz, true);
+    lh.setUint32(22, sz, true);
+    lh.setUint16(26, nameBytes.length, true);
+    lh.setUint16(28, 0, true);
+
+    chunks.push(new Uint8Array(lh.buffer), nameBytes, e.data);
+
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true);   // central dir header
+    ch.setUint16(4, 20, true);
+    ch.setUint16(6, 20, true);
+    ch.setUint16(8, 0, true);
+    ch.setUint16(10, 0, true);
+    ch.setUint16(12, 0, true);
+    ch.setUint16(14, 0x58D1, true);
+    ch.setUint32(16, crc, true);
+    ch.setUint32(20, sz, true);
+    ch.setUint32(24, sz, true);
+    ch.setUint16(28, nameBytes.length, true);
+    ch.setUint16(30, 0, true);
+    ch.setUint16(32, 0, true);
+    ch.setUint16(34, 0, true);
+    ch.setUint16(36, 0, true);
+    ch.setUint32(38, 0, true);
+    ch.setUint32(42, offset, true);
+    central.push(new Uint8Array(ch.buffer), nameBytes);
+
+    offset += 30 + nameBytes.length + sz;
+  }
+
+  const centralSize = central.reduce((s, c) => s + c.length, 0);
+  const eocd = new DataView(new ArrayBuffer(22));
+  eocd.setUint32(0, 0x06054b50, true);
+  eocd.setUint16(8, entries.length, true);
+  eocd.setUint16(10, entries.length, true);
+  eocd.setUint32(12, centralSize, true);
+  eocd.setUint32(16, offset, true);
+
+  return new Blob([...chunks, ...central, new Uint8Array(eocd.buffer)], { type: "application/zip" });
+}
+
+function downloadZIP() {
+  renderPNG(pngBlob => {
+    const htmlBlob = getHTMLBlob();
+    Promise.all([
+      pngBlob.arrayBuffer(),
+      htmlBlob.arrayBuffer()
+    ]).then(([pngBuf, htmlBuf]) => {
+      const zip = makeZip([
+        { name: "meshcore-nodes-20261111.png",  data: new Uint8Array(pngBuf) },
+        { name: "meshcore-poster-20261111.html", data: new Uint8Array(htmlBuf) }
+      ]);
+      save(zip, "meshcore-poster-20261111.zip");
+    });
+  });
+}
+</script>
+</body>
+</html>
